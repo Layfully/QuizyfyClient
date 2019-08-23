@@ -1,0 +1,17 @@
+{
+    "headers": [
+      {
+        "source" : "*",
+        "headers" : [{
+          "key" : "Cache-Control",
+          "value" : "max-age=7200"
+        }]
+      }, {
+        "source" : "404.html",
+        "headers" : [{
+          "key" : "Cache-Control",
+          "value" : "max-age=300"
+        }]
+      }
+    ]
+  }
