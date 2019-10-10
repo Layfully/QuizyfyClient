@@ -20,11 +20,10 @@ export default {
     return Axios.post(RESOURCE_NAME.concat('/login'), userData)
   },
   confirmEmail (id, token) {
-    return Axios.patch(RESOURCE_NAME.concat(`/emailVerification/${id}`), { token }, {
-      headers: {
-        accept: 'application/json'
-      }
-    })
+    return Axios.patch(RESOURCE_NAME.concat(`/emailVerification/${id}`), token)
+  },
+  changePassword (id, userData) {
+    return Axios.patch(RESOURCE_NAME.concat(`/passwordRecovery/${id}`), userData)
   },
   update (id, data) {
     return Axios.put(`${RESOURCE_NAME}/${id}`, data)
