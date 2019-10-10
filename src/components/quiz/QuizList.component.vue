@@ -18,13 +18,12 @@
   </v-container>
 </template>
 <script>
-import QuizService from '@/api-services/quiz.service'
+import QuizService from "@/api-services/quiz.service";
 
 export default {
-  name: 'QuizList',
-  components: {
-  },
-  data () {
+  name: "QuizList",
+  components: {},
+  data() {
     return {
       quizData: {
         paging: {
@@ -32,61 +31,63 @@ export default {
           pageNumber: 1
         }
       }
-    }
+    };
   },
-  created () {
-    QuizService
-      .getAll(this.$route.params.pageNumber, this.quizData.paging.pageSize)
-      .then((response) => {
-        this.quizData = response.data
-      })
+  created() {
+    QuizService.getAll(
+      this.$route.params.pageNumber,
+      this.quizData.paging.pageSize
+    ).then(response => {
+      this.quizData = response.data;
+    });
   },
   methods: {
-    linkGen (pageNum) {
-      return this.$route.path.substring(0, this.$route.path.lastIndexOf('/')).concat(`/${pageNum}`)
+    linkGen(pageNum) {
+      return this.$route.path
+        .substring(0, this.$route.path.lastIndexOf("/"))
+        .concat(`/${pageNum}`);
     }
   }
-}
+};
 </script>
 
 <style scoped>
-
-.card-img-top{
-  height:275px;
+.card-img-top {
+  height: 275px;
   object-fit: cover;
 }
 
-.card-group-custom{
+.card-group-custom {
   flex-flow: row wrap;
   display: flex;
   margin: 50px auto;
   width: 80%;
 }
 
-.card-title{
+.card-title {
   font-weight: bold;
   font-size: 1.15rem;
   color: darkslategray;
   text-transform: capitalize;
 }
 
-.card-body{
+.card-body {
   padding: 30px;
 }
 
-.pagination-wrapper{
+.pagination-wrapper {
   width: 80%;
   margin: 0 auto;
 }
 
-.card-custom{
+.card-custom {
   width: calc(50% - 30px);
   margin: 15px;
-  box-shadow: rgba(194,195,196,.4) 0 2px;
+  box-shadow: rgba(194, 195, 196, 0.4) 0 2px;
 }
 
-@media (max-width: 800px){
-  .card-custom{
+@media (max-width: 800px) {
+  .card-custom {
     width: 100%;
     margin: 10px 0;
   }
