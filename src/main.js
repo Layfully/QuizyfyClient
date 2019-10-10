@@ -1,18 +1,21 @@
 import '@babel/polyfill'
 import 'mutationobserver-shim'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'bootstrap/dist/css/bootstrap.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLock, faHeart, faUserPlus, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Axios from 'axios'
-import BootstrapVue from 'bootstrap-vue'
 import Vue from 'vue'
-import './plugins/bootstrap-vue'
 import App from './App'
 import router from './router'
 import store from './store'
 import { onSuccess, onError, beforeRequestSuccess, beforeRequestError } from '@/interceptors/jwt'
+import VuePageTransition from 'vue-page-transition'
+import vuetify from './plugins/vuetify'
+import 'vue-material-design-icons/styles.css'
+import { VueReCaptcha } from 'vue-recaptcha-v3'
+
+Vue.use(VueReCaptcha, { siteKey: '6LeZgrgUAAAAACAeeUO1yZhMWqO30BgcBppjPnz4' })
+Vue.use(VuePageTransition)
 
 library.add(faLock)
 library.add(faHeart)
@@ -35,7 +38,7 @@ if (jwtToken) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = jwtToken
 }
 
-Vue.use(BootstrapVue)
+Vue.prototype.$eventBus = new Vue()
 
 /* eslint-disable no-new */
 new Vue({
@@ -43,5 +46,6 @@ new Vue({
   router,
   template: '<App/>',
   store,
+  vuetify,
   components: { App }
 })

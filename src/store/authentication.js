@@ -36,17 +36,18 @@ const getters = {
 const actions = {
   login ({ commit }, credentials) {
     return UserService.login(credentials).then((data) => {
-      let user = {}
-
-      user.firstName = data.data.firstName
-      user.lastName = data.data.lastName
-      user.role = data.data.role
-      user.username = data.data.username
-
-      commit('setLoggedIn', true)
-      commit('setUser', user)
-      commit('setAccessToken', data.data.jwtToken)
-      commit('setRefreshToken', data.data.refreshToken.token)
+      setUserData(commit, data)
+    })
+  },
+  register ({ commit }, user) {
+    return UserService.register(user).then((data) => {
+      setUserData(commit, data)
+    })
+  },
+  confirmEmail ({ commit }, data) {
+    console.log(data)
+    return UserService.confirmEmail(data.id, data.token).then((data) => {
+      setUserData(commit, data)
     })
   },
   logout ({ commit }) {
@@ -83,6 +84,20 @@ const mutations = {
   setLoggedIn (state, status) {
     state.loggedin = status
   }
+}
+
+const setUserData = (commit, data) => {
+  let user = {}
+
+  user.firstName = data.data.firstName
+  user.lastName = data.data.lastName
+  user.role = data.data.role
+  user.username = data.data.username
+
+  commit('setLoggedIn', true)
+  commit('setUser', user)
+  commit('setAccessToken', data.data.jwtToken)
+  commit('setRefreshToken', data.data.refreshToken.token)
 }
 
 export default {

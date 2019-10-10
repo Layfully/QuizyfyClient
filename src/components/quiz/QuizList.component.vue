@@ -1,28 +1,28 @@
 <template>
-  <div>
-      <link rel="preconnect" href="https://localhost:5001"/>
-    <b-row>
-      <b-col>
-        <div class="card-group-custom">
-          <b-card :title="quiz.name" v-for="quiz in quizData.items" :img-src="quiz.imageUrl" :key="quiz.id"  class="card-custom" border-variant="light" img-alt="Card image" img-top>
-            <QuizListElement :description='"asdasd"' :quizId="quiz.id"/>
-          </b-card>
-        </div>
-      </b-col>
-    </b-row>
-     <div class="mt-3">
-      <b-pagination-nav class="pagination-wrapper" :link-gen="linkGen" :number-of-pages="quizData.paging.totalPages" align="fill"></b-pagination-nav>
-    </div>
-  </div>
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <v-card hover v-for="quiz  in quizData.items" :key="quiz.id">
+          <v-img :src="quiz.imageUrl" :aspect-ratio="11/9">
+          </v-img>
+          <v-card-title>
+            {{ quiz.name }}
+          </v-card-title>
+          <v-card-text>
+          </v-card-text>
+          <v-card-actions>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
 import QuizService from '@/api-services/quiz.service'
-import QuizListElement from './QuizListElement.vue'
 
 export default {
   name: 'QuizList',
   components: {
-    'QuizListElement': QuizListElement
   },
   data () {
     return {

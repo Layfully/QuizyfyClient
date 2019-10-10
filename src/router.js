@@ -8,6 +8,7 @@ import QuizCreate from '@/components/quiz/QuizCreate.component'
 import UserLogin from '@/components/user/UserLogin.component'
 import UserRegistration from '@/components/user/UserRegistration.component'
 import UserProfile from '@/components/user/UserProfile.component'
+import UserConfirmEmail from '@/components/user/UserConfirmEmail.component'
 
 Vue.use(Router)
 
@@ -18,7 +19,8 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: { transition: 'zoom' }
     },
     {
       path: '/quiz/list/:pageNumber',
@@ -38,12 +40,19 @@ export default new Router({
     {
       path: 'login',
       name: 'UserLogin',
-      component: UserLogin
+      component: UserLogin,
+      meta: { transition: 'fade-in-down' }
     },
     {
       path: 'register',
       name: 'UserRegistration',
-      component: UserRegistration
+      component: UserRegistration,
+      meta: { transition: 'fade-in-up' }
+    },
+    {
+      path: '/confirm/:id/:token',
+      name: 'UserConfirmEmail',
+      component: UserConfirmEmail
     },
     {
       path: 'profile',

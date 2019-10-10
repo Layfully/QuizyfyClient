@@ -10,13 +10,22 @@ export default {
   get (id) {
     return Axios.get(`${RESOURCE_NAME}/${id}`)
   },
-  register (userData) {
+  register (userData, token) {
+    userData.recaptchaToken = token
+    userData.role = 'user'
     return Axios.post(RESOURCE_NAME.concat('/register'), userData)
   },
-  login (userData) {
+  login (userData, token) {
+    userData.recaptchaToken = token
     return Axios.post(RESOURCE_NAME.concat('/login'), userData)
   },
-
+  confirmEmail (id, token) {
+    return Axios.patch(RESOURCE_NAME.concat(`/emailVerification/${id}`), { token }, {
+      headers: {
+        accept: 'application/json'
+      }
+    })
+  },
   update (id, data) {
     return Axios.put(`${RESOURCE_NAME}/${id}`, data)
   },

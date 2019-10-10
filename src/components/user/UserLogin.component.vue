@@ -1,50 +1,41 @@
 <template>
-  <b-container style="flex:1; height:calc(100vh - 60px);">
-    <div class="form-wrapper">
-      <b-form @submit.prevent="userLogin">
-        <b-form-group
-          :label-cols="2"
-          label-size="lg"
-          breakpoint="md"
-          horizontal
-          label="Username"
-          for="username">
-          <b-col :md="5" class="center">
-            <b-input
-              id="username"
-              v-model="credentials.username"
-              maxlength="60"
-              required />
-          </b-col>
-        </b-form-group>
-
-        <b-form-group
-          :label-cols="2"
-          label-size="lg"
-          breakpoint="md"
-          horizontal
-          label="Password"
-          for="password">
-          <b-col :md="5" class="center">
-            <b-input
-              id="password"
-              v-model="credentials.password"
-              maxlength="60"
-              required />
-          </b-col>
-        </b-form-group>
-
-          <b-col
-            :md="5"
-            class="center flex-center"
-            offset="4">
-            <b-button @click="userLogin(credentials)" variant="success">Zaloguj się</b-button>
-          </b-col>
-      </b-form>
-    </div>
-  </b-container>
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <v-card class="elevation-12">
+          <v-toolbar color="primary" dark flat>
+            <v-toolbar-title>Logowanie</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <v-form @submit.prevent="userLogin">
+              <v-text-field
+                label="Login"
+                name="login"
+                type="text"
+                prepend-icon="mdi-account"
+                v-model="credentials.username"
+              ></v-text-field>
+              <v-text-field
+                id="password"
+                label="Hasło"
+                name="password"
+                prepend-icon="mdi-lock"
+                type="password"
+                v-model="credentials.password"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn block color="primary" @click="userLogin(credentials)">Zaloguj się</v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn text block color="primary">Zapomniałeś hasła?</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
-
 <script>
 import { mapActions } from 'vuex'
 
@@ -62,15 +53,14 @@ export default {
     ...mapActions({
       login: 'Authentication/login'
     }),
+
     userLogin (credentials) {
-      this.login(credentials)
-        .then(() => this.$router.push('/'))
-        .catch(error => console.log(error))
+      this.$recaptcha('login').then((token) => {
+        this.login(credentials, token)
+          .then(() => this.$router.push('/'))
+          .catch(error => console.log(error))
+      }).catch((error) => console.log(error))
     }
   }
 }
 </script>
-
-<style>
-
-</style>
