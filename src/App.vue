@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld/>
+  <Base/>
 </template>
 
 <script>
-import HelloWorld from "./views/Home";
+import Base from "./views/Base";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    Base
   }
 };
 </script>
