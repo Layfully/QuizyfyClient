@@ -26,7 +26,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
-Axios.defaults.baseURL = 'https://localhost:5001/api'
+Axios.defaults.baseURL = process.env.API_URL
 Axios.interceptors.request.use(beforeRequestSuccess, beforeRequestError)
 Axios.interceptors.response.use(onSuccess, onError)
 
