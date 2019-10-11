@@ -10,6 +10,7 @@ import UserRegistration from '@/components/user/UserRegistration.component'
 import UserProfile from '@/components/user/UserProfile.component'
 import UserConfirmEmail from '@/components/user/UserConfirmEmail.component'
 import UserResetPassword from '@/components/user/UserResetPassword.component'
+import UserForgotPassword from '@/components/user/UserForgotPassword.component'
 
 Vue.use(Router)
 
@@ -54,6 +55,12 @@ export default new Router({
       path: '/confirm/:id/:token',
       name: 'UserConfirmEmail',
       component: UserConfirmEmail
+    },
+    {
+      path: '/forgotPassword',
+      name: 'UserForgotPassword',
+      component: UserForgotPassword,
+      meta: { transition: 'fade-in-up' }
     },
     {
       path: '/resetPassword/:id/:token',

@@ -54,6 +54,11 @@ const actions = {
       setUserData(commit, data)
     })
   },
+  generatePasswordResetToken ({ commit }, email) {
+    return UserService.generatePasswordResetToken(email).then((data) => {
+      setUserData(commit, data)
+    })
+  },
   logout ({ commit }) {
     commit('setLoggedIn', false)
     commit('setUser', false)

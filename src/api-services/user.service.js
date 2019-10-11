@@ -25,10 +25,12 @@ export default {
   changePassword (id, userData) {
     return Axios.patch(RESOURCE_NAME.concat(`/passwordRecovery/${id}`), userData)
   },
+  generatePasswordResetToken (email) {
+    return Axios.patch(RESOURCE_NAME.concat(`/recoveryTokenGeneration`), email)
+  },
   update (id, data) {
     return Axios.put(`${RESOURCE_NAME}/${id}`, data)
   },
-
   delete (id) {
     return Axios.delete(`${RESOURCE_NAME}/${id}`)
   }
