@@ -69,7 +69,7 @@ export default {
     ...mapActions({
       generatePasswordResetToken: 'Authentication/generatePasswordResetToken'
     }),
-    sendEmailWithLinkReset (email) {
+    sendMail (email) {
       this.generatePasswordResetToken(email)
         .then(() => this.$router.push({ path: '/' }))
         .catch((error) => console.log(error))
