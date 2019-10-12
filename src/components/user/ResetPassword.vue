@@ -92,7 +92,7 @@ extend('require', {
 })
 
 export default {
-  name: 'UserResetPassword',
+  name: 'ResetPassword',
   components: {
     ValidationProvider,
     ValidationObserver

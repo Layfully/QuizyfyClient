@@ -29,7 +29,7 @@
             <v-btn block color="primary" @click="userLogin(credentials)">Zaloguj się</v-btn>
           </v-card-actions>
           <v-card-actions>
-            <v-btn text block color="primary" :to="{ name: 'UserForgotPassword' }">Zapomniałeś hasła?</v-btn>
+            <v-btn text block color="primary" :to="{ name: 'PasswordRecovery' }">Zapomniałeś hasła?</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>

@@ -8,9 +8,9 @@ import QuizCreate from '@/components/quiz/QuizCreate'
 import UserLogin from '@/components/user/UserLogin'
 import UserRegistration from '@/components/user/UserRegistration'
 import UserProfile from '@/components/user/UserProfile'
-import UserConfirmEmail from '@/components/user/UserConfirmEmail'
-import UserResetPassword from '@/components/user/UserResetPassword'
-import UserPasswordRecovery from '@/components/user/UserPasswordRecovery'
+import ConfirmEmail from '@/components/user/ConfirmEmail'
+import ResetPassword from '@/components/user/ResetPassword'
+import PasswordRecovery from '@/components/user/PasswordRecovery'
 
 Vue.use(Router)
 
@@ -53,19 +53,19 @@ export default new Router({
     },
     {
       path: '/confirm/:id/:token',
-      name: 'UserConfirmEmail',
-      component: UserConfirmEmail
+      name: 'ConfirmEmail',
+      component: ConfirmEmail
     },
     {
       path: '/passwordRecovery',
-      name: 'UserPasswordRecovery',
-      component: UserPasswordRecovery,
+      name: 'PasswordRecovery',
+      component: PasswordRecovery,
       meta: { transition: 'fade-in-up' }
     },
     {
       path: '/resetPassword/:id/:token',
-      name: 'UserResetPassword',
-      component: UserResetPassword
+      name: 'ResetPassword',
+      component: ResetPassword
     },
     {
       path: 'profile',
