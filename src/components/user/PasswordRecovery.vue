@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      generatePasswordResetToken: 'Authentication/generatePasswordResetToken'
+      generatePasswordResetToken: 'User/generatePasswordResetToken'
     }),
     sendMail (email) {
       this.generatePasswordResetToken(email)

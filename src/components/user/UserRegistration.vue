@@ -166,7 +166,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'Authentication/login'
+      login: 'User/login'
     }),
     userRegister (user) {
       this.$recaptcha('register').then((token) => {

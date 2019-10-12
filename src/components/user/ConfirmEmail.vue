@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      confirmEmail: 'Authentication/confirmEmail'
+      confirmEmail: 'User/confirmEmail'
     }),
 
     confirmUserEmail (id, token) {

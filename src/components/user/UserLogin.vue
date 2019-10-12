@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'Authentication/login'
+      login: 'User/login'
     }),
 
     userLogin (credentials) {

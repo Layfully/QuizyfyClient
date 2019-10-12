@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      changePassword: 'Authentication/changePassword'
+      changePassword: 'User/changePassword'
     }),
     resetPassword (user) {
       this.changePassword(this.$route.params.id, user)
