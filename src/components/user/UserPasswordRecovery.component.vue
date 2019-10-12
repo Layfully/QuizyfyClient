@@ -47,7 +47,7 @@ extend('email', {
 })
 
 export default {
-  name: 'UserForgotPassword',
+  name: 'UserPasswordRecovery',
   components: {
     ValidationProvider,
     ValidationObserver
