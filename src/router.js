@@ -9,7 +9,7 @@ import LoginForm from '@/views/user/LoginForm'
 import RegistrationForm from '@/views/user/RegistrationForm'
 import UserProfile from '@/views/user/UserProfile'
 import EmailConfirmation from '@/views/user/EmailConfirmation'
-import ResetPassword from '@/views/user/ResetPassword'
+import PasswordReset from '@/views/user/PasswordReset'
 import PasswordRecovery from '@/views/user/PasswordRecovery'
 
 Vue.use(Router)
@@ -64,8 +64,8 @@ export default new Router({
     },
     {
       path: '/resetPassword/:id/:token',
-      name: 'ResetPassword',
-      component: ResetPassword
+      name: 'PasswordReset',
+      component: PasswordReset
     },
     {
       path: '/profile',
