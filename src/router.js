@@ -40,13 +40,13 @@ export default new Router({
       component: QuizCreate
     },
     {
-      path: 'login',
+      path: '/login',
       name: 'LoginForm',
       component: LoginForm,
       meta: { transition: 'fade-in-down' }
     },
     {
-      path: 'register',
+      path: '/register',
       name: 'RegistrationForm',
       component: RegistrationForm,
       meta: { transition: 'fade-in-up' }
@@ -68,7 +68,7 @@ export default new Router({
       component: ResetPassword
     },
     {
-      path: 'profile',
+      path: '/profile',
       name: 'UserProfile',
       component: UserProfile
     },
