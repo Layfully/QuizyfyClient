@@ -14,7 +14,7 @@ import vuetify from './plugins/vuetify'
 import 'vue-material-design-icons/styles.css'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
 
-Vue.use(VueReCaptcha, { siteKey: '6LeZgrgUAAAAACAeeUO1yZhMWqO30BgcBppjPnz4' })
+Vue.use(VueReCaptcha, { siteKey: process.env.CAPTCHA_SITE_KEY })
 Vue.use(VuePageTransition)
 
 library.add(faLock)
