@@ -25,13 +25,13 @@ export default {
       menuItems: [
         {
           title: 'Rejestracja',
-          path: { name: 'UserRegistration' },
+          path: { name: 'RegistrationForm' },
           icon: 'Face',
           requireAuth: false
         },
         {
           title: 'Logowanie',
-          path: { name: 'UserLogin' },
+          path: { name: 'LoginForm' },
           icon: 'LockOpen',
           requireAuth: false
         },
