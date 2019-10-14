@@ -40,7 +40,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'UserLogin',
+  name: 'LoginForm',
   data () {
     return {
       credentials: {

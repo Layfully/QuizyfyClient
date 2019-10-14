@@ -127,7 +127,7 @@ extend('email', {
 })
 
 export default {
-  name: 'UserRegistration',
+  name: 'RegistrationForm',
   components: {
     ValidationProvider,
     ValidationObserver
