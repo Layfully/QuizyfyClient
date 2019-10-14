@@ -45,8 +45,17 @@ const actions = {
     })
   },
   confirmEmail ({ commit }, data) {
-    console.log(data)
     return UserService.confirmEmail(data.id, data.token).then((data) => {
+      setUserData(commit, data)
+    })
+  },
+  changePassword ({ commit }, id, user) {
+    return UserService.changePasssword(id, user).then((data) => {
+      setUserData(commit, data)
+    })
+  },
+  generatePasswordResetToken ({ commit }, email) {
+    return UserService.generatePasswordResetToken(email).then((data) => {
       setUserData(commit, data)
     })
   },

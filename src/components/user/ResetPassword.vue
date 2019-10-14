@@ -5,42 +5,13 @@
         <ValidationObserver v-slot="{ invalid, validated }">
           <v-card class="elevation-12">
             <v-toolbar color="primary" dark flat>
-              <v-toolbar-title>Rejestracja</v-toolbar-title>
+              <v-toolbar-title>Reset hasła</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form @submit.prevent="userRegister">
-                <ValidationProvider name="Login" :rules="{ require:true, between: { min: 5, max: 256 } }" v-slot="{errors, valid}" :bails="false">
-                  <v-text-field
-                  :error-messages="checkIfFocused(errors, focused.login)"
-                  :error-count="errors.length"
-                  :success="valid"
-                  @focus="focused.login = true"
-                  @blur="focused.login = false"
-                  id="login"
-                  label="Login"
-                  name="login"
-                  type="text"
-                  prepend-icon="mdi-account"
-                  v-model="user.username"></v-text-field>
-                </ValidationProvider>
-                <ValidationProvider name="Email" :rules="{ require:true, email:true }" v-slot="{errors, valid}" :bails="false">
-                    <v-text-field
-                    :error-messages="checkIfFocused(errors, focused.email)"
-                    :error-count="errors.length"
-                    :success="valid"
-                    @focus="focused.email = true"
-                    @blur="focused.email = false"
-                    id="email"
-                    label="Email"
-                    prepend-icon="mdi-email"
-                    type="email"
-                    v-model="user.email"
-                    required>
-                    </v-text-field>
-                </ValidationProvider>
+              <v-form @submit.prevent="resetPassword">
                 <v-row>
                   <v-col >
-                    <ValidationProvider name="Hasło" :rules="{ require:true, between: [8, 1024 ], passwordMatch: 'Potwierdzenie Hasła' }" v-slot="{errors, valid}" :bails="false">
+                    <ValidationProvider name="Hasło" :rules="{ require:true, between: [8, 1024], passwordMatch: 'Potwierdzenie Hasła' }" v-slot="{errors, valid}" :bails="false">
                       <v-text-field
                       :error-messages="checkIfFocused(errors, focused.password)"
                       :error-count="errors.length"
@@ -88,7 +59,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn :disabled="!validated || invalid" color="primary" @click="userRegister(user)">Zarejestruj się</v-btn>
+              <v-btn :disabled="!validated || invalid" color="primary" @click="resetPassword(user)">Zmień hasło</v-btn>
             </v-card-actions>
           </v-card>
         </ValidationObserver>
@@ -99,9 +70,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import UserService from '@/api-services/user.service'
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
-import { between, required, email } from 'vee-validate/dist/rules'
+import { between, required } from 'vee-validate/dist/rules'
 import zxcvbn from 'zxcvbn'
 
 extend('passwordMatch', {
@@ -121,13 +91,8 @@ extend('require', {
   message: 'Pole {_field_} jest wymagane.'
 })
 
-extend('email', {
-  validate: email.validate,
-  message: 'Podany adres email jest niepoprawny.'
-})
-
 export default {
-  name: 'UserRegistration',
+  name: 'ResetPassword',
   components: {
     ValidationProvider,
     ValidationObserver
@@ -135,26 +100,24 @@ export default {
   data () {
     return {
       user: {
-        username: '',
         password: '',
-        email: ''
+        token: ''
       },
       showPassword: false,
       showStrengthMeter: false,
       confirmedPassword: '',
       focused: {
         password: false,
-        passwordConfirmation: false,
-        email: false,
-        login: false
+        passwordConfirmation: false
       },
       valid: {
         password: false,
-        passwordConfirmation: false,
-        email: false,
-        login: false
+        passwordConfirmation: false
       }
     }
+  },
+  mounted () {
+    this.user.token = this.$route.params.token
   },
   computed: {
     passwordStrength () {
@@ -166,15 +129,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'Authentication/login'
+      changePassword: 'User/changePassword'
     }),
-    userRegister (user) {
-      this.$recaptcha('register').then((token) => {
-        UserService.register(user, token)
-          .then((data) => this.login(user))
-          .then(() => this.$router.push({ path: '/' }))
-          .catch((error) => console.log(error))
-      }).catch((error) => console.log(error))
+    resetPassword (user) {
+      this.changePassword(this.$route.params.id, user)
+        .then(() => this.$router.push({ path: '/' }))
+        .catch((error) => console.log(error))
     },
     checkIfFocused (errors, focus) {
       return focus ? null : errors

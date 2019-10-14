@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import NotFound from '@/components/error-pages/NotFound'
-import Quiz from '@/components/quiz/Quiz.component'
-import QuizList from '@/components/quiz/QuizList.component'
-import QuizCreate from '@/components/quiz/QuizCreate.component'
-import UserLogin from '@/components/user/UserLogin.component'
-import UserRegistration from '@/components/user/UserRegistration.component'
-import UserProfile from '@/components/user/UserProfile.component'
-import UserConfirmEmail from '@/components/user/UserConfirmEmail.component'
+import Quiz from '@/components/quiz/Quiz'
+import QuizList from '@/components/quiz/QuizList'
+import QuizCreate from '@/components/quiz/QuizCreate'
+import UserLogin from '@/components/user/UserLogin'
+import UserRegistration from '@/components/user/UserRegistration'
+import UserProfile from '@/components/user/UserProfile'
+import ConfirmEmail from '@/components/user/ConfirmEmail'
+import ResetPassword from '@/components/user/ResetPassword'
+import PasswordRecovery from '@/components/user/PasswordRecovery'
 
 Vue.use(Router)
 
@@ -51,8 +53,19 @@ export default new Router({
     },
     {
       path: '/confirm/:id/:token',
-      name: 'UserConfirmEmail',
-      component: UserConfirmEmail
+      name: 'ConfirmEmail',
+      component: ConfirmEmail
+    },
+    {
+      path: '/passwordRecovery',
+      name: 'PasswordRecovery',
+      component: PasswordRecovery,
+      meta: { transition: 'fade-in-up' }
+    },
+    {
+      path: '/resetPassword/:id/:token',
+      name: 'ResetPassword',
+      component: ResetPassword
     },
     {
       path: 'profile',
