@@ -90,7 +90,7 @@ import QuizService from '@/api-services/quiz.service'
 import QuestionCreate from '../question/QuestionCreate.vue'
 
 export default {
-  name: 'QuizCreate',
+  name: 'QuizCreation',
   components: {
     'QuestionCreate': QuestionCreate
   },
