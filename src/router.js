@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+import Home from '@/views/Home'
 import NotFound from '@/views/NotFound'
-import Quiz from '@/components/quiz/Quiz'
-import QuizList from '@/components/quiz/QuizList'
-import QuizCreate from '@/components/quiz/QuizCreate'
-import LoginForm from '@/components/user/LoginForm'
-import RegistrationForm from '@/components/user/RegistrationForm'
-import UserProfile from '@/components/user/UserProfile'
-import ConfirmEmail from '@/components/user/ConfirmEmail'
-import ResetPassword from '@/components/user/ResetPassword'
-import PasswordRecovery from '@/components/user/PasswordRecovery'
+import Quiz from '@/views/quiz/Quiz'
+import QuizList from '@/views/quiz/QuizList'
+import QuizCreation from '@/views/quiz/QuizCreation'
+import LoginForm from '@/views/user/LoginForm'
+import RegistrationForm from '@/views/user/RegistrationForm'
+import UserProfile from '@/views/user/UserProfile'
+import ConfirmEmail from '@/views/user/ConfirmEmail'
+import ResetPassword from '@/views/user/ResetPassword'
+import PasswordRecovery from '@/views/user/PasswordRecovery'
 
 Vue.use(Router)
 
@@ -37,7 +37,7 @@ export default new Router({
     {
       path: '/quiz/create',
       name: 'QuizCreate',
-      component: QuizCreate
+      component: QuizCreation
     },
     {
       path: '/login',
