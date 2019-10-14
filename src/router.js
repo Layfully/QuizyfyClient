@@ -5,8 +5,8 @@ import NotFound from '@/views/NotFound'
 import Quiz from '@/components/quiz/Quiz'
 import QuizList from '@/components/quiz/QuizList'
 import QuizCreate from '@/components/quiz/QuizCreate'
-import UserLogin from '@/components/user/UserLogin'
-import UserRegistration from '@/components/user/UserRegistration'
+import LoginForm from '@/components/user/LoginForm'
+import RegistrationForm from '@/components/user/RegistrationForm'
 import UserProfile from '@/components/user/UserProfile'
 import ConfirmEmail from '@/components/user/ConfirmEmail'
 import ResetPassword from '@/components/user/ResetPassword'
@@ -41,14 +41,14 @@ export default new Router({
     },
     {
       path: 'login',
-      name: 'UserLogin',
-      component: UserLogin,
+      name: 'LoginForm',
+      component: LoginForm,
       meta: { transition: 'fade-in-down' }
     },
     {
       path: 'register',
-      name: 'UserRegistration',
-      component: UserRegistration,
+      name: 'RegistrationForm',
+      component: RegistrationForm,
       meta: { transition: 'fade-in-up' }
     },
     {
