@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import NotFound from '@/views/NotFound'
-import Quiz from '@/components/quiz/Quiz'
-import QuizList from '@/components/quiz/QuizList'
-import QuizCreate from '@/components/quiz/QuizCreate'
-import UserLogin from '@/components/user/UserLogin'
-import UserRegistration from '@/components/user/UserRegistration'
-import UserProfile from '@/components/user/UserProfile'
-import UserConfirmEmail from '@/components/user/UserConfirmEmail'
+import NotFound from '@/components/error-pages/NotFound'
+import Quiz from '@/components/quiz/Quiz.component'
+import QuizList from '@/components/quiz/QuizList.component'
+import QuizCreate from '@/components/quiz/QuizCreate.component'
+import UserLogin from '@/components/user/UserLogin.component'
+import UserRegistration from '@/components/user/UserRegistration.component'
+import UserProfile from '@/components/user/UserProfile.component'
+import UserConfirmEmail from '@/components/user/UserConfirmEmail.component'
 
 Vue.use(Router)
 

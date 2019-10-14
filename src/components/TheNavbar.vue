@@ -6,7 +6,7 @@
       </span>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-          <v-img height="60" width="60" src="@/assets/logo.jpg"></v-img>
+          {{ appTitle }}
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -19,15 +19,15 @@
     </v-app-bar>
 </template>
 <script>
-import Face from "vue-material-design-icons/Face.vue";
-import LockOpen from "vue-material-design-icons/LockOpen.vue";
-import Logout from "vue-material-design-icons/Logout.vue";
-import BookMultiple from "vue-material-design-icons/BookMultiple.vue";
+import Face from 'vue-material-design-icons/Face.vue'
+import LockOpen from 'vue-material-design-icons/LockOpen.vue'
+import Logout from 'vue-material-design-icons/Logout.vue'
+import BookMultiple from 'vue-material-design-icons/BookMultiple.vue'
 
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: "TheNavbar",
+  name: 'TheNavbar',
   components: {
     Face,
     LockOpen,
@@ -45,22 +45,25 @@ export default {
     }
   },
   methods: {
-    ...mapActions("Authentication", ["logout"]),
-    toggleDrawer() {
-      this.$eventBus.$emit("toggleSidebar");
+    ...mapActions('Authentication', [
+      'logout'
+    ]),
+    toggleDrawer () {
+      this.$eventBus.$emit('toggleSidebar')
     }
   },
   computed: {
-    ...mapGetters("Authentication", ["loggedin", "user"]),
-    activeMenuItems() {
-      return this.menuItems.filter(i => i.requireAuth === this.loggedin);
+    ...mapGetters('Authentication', [
+      'loggedin',
+      'user'
+    ]),
+    activeMenuItems () {
+      return this.menuItems.filter(i => i.requireAuth === this.loggedin)
     }
   }
-};
+}
 </script>
 
 <style scoped>
-.logo {
-  height: 100%;
-}
+
 </style>

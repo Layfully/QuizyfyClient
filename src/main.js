@@ -14,7 +14,7 @@ import vuetify from './plugins/vuetify'
 import 'vue-material-design-icons/styles.css'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
 
-Vue.use(VueReCaptcha, { siteKey: process.env.CAPTCHA_SITE_KEY })
+Vue.use(VueReCaptcha, { siteKey: '6LeZgrgUAAAAACAeeUO1yZhMWqO30BgcBppjPnz4' })
 Vue.use(VuePageTransition)
 
 library.add(faLock)
@@ -26,7 +26,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
-Axios.defaults.baseURL = process.env.API_URL
+Axios.defaults.baseURL = 'https://localhost:5001/api'
 Axios.interceptors.request.use(beforeRequestSuccess, beforeRequestError)
 Axios.interceptors.response.use(onSuccess, onError)
 
