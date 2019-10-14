@@ -70,7 +70,6 @@ export default {
   text-transform: capitalize;
 }
 
-
 .card-body{
   padding: 30px;
 }

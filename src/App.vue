@@ -3,12 +3,12 @@
 </template>
 
 <script>
-import Base from "./views/Base";
+import Base from './views/Base'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Base
   }
-};
+}
 </script>

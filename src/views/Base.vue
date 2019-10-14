@@ -11,44 +11,44 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
-import MobileNavbar from "@/components/MobileNavbar.vue";
+import Navbar from '@/components/Navbar.vue'
+import MobileNavbar from '@/components/MobileNavbar.vue'
 
 export default {
   components: {
     Navbar,
     MobileNavbar
   },
-  data() {
+  data () {
     return {
-      appTitle: "Quizyfy",
+      appTitle: 'Quizyfy',
       menuItems: [
         {
-          title: "Rejestracja",
-          path: { name: "UserRegistration" },
-          icon: "Face",
+          title: 'Rejestracja',
+          path: { name: 'UserRegistration' },
+          icon: 'Face',
           requireAuth: false
         },
         {
-          title: "Logowanie",
-          path: { name: "UserLogin" },
-          icon: "LockOpen",
+          title: 'Logowanie',
+          path: { name: 'UserLogin' },
+          icon: 'LockOpen',
           requireAuth: false
         },
         {
-          title: "Wyloguj się",
-          path: { name: "Home" },
-          icon: "Logout",
+          title: 'Wyloguj się',
+          path: { name: 'Home' },
+          icon: 'Logout',
           requireAuth: true
         },
         {
-          title: "Katalog Quizów",
-          path: { name: "QuizList", params: { pageNumber: 1 } },
-          icon: "BookMultiple",
+          title: 'Katalog Quizów',
+          path: { name: 'QuizList', params: { pageNumber: 1 } },
+          icon: 'BookMultiple',
           requireAuth: false
         }
       ]
-    };
+    }
   }
-};
+}
 </script>
