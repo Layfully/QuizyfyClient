@@ -19,7 +19,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'ConfirmEmail',
+  name: 'EmaillConfirmation',
   created () {
     this.confirmUserEmail(this.$route.params.id, this.$route.params.token)
   },

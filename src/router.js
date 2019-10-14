@@ -8,7 +8,7 @@ import QuizCreation from '@/views/quiz/QuizCreation'
 import LoginForm from '@/views/user/LoginForm'
 import RegistrationForm from '@/views/user/RegistrationForm'
 import UserProfile from '@/views/user/UserProfile'
-import ConfirmEmail from '@/views/user/ConfirmEmail'
+import EmailConfirmation from '@/views/user/EmailConfirmation'
 import ResetPassword from '@/views/user/ResetPassword'
 import PasswordRecovery from '@/views/user/PasswordRecovery'
 
@@ -53,8 +53,8 @@ export default new Router({
     },
     {
       path: '/confirm/:id/:token',
-      name: 'ConfirmEmail',
-      component: ConfirmEmail
+      name: 'EmailConfirmation',
+      component: EmailConfirmation
     },
     {
       path: '/passwordRecovery',
