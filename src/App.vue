@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld/>
+  <Base/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Base from "./views/Base";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    Base
   }
-}
+};
 </script>
