@@ -11,7 +11,7 @@ import './plugins/icons'
 import 'vue-material-design-icons/styles.css'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
 
-Vue.use(VueReCaptcha, { siteKey: process.env.CAPTCHA_SITE_KEY })
+Vue.use(VueReCaptcha, { siteKey: process.env.VUE_APP_CAPTCHA_SITE_KEY })
 Vue.use(VuePageTransition)
 
 Vue.config.productionTip = process.env.NODE_ENV === 'development'
