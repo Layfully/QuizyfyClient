@@ -1,8 +1,5 @@
 import '@babel/polyfill'
 import 'mutationobserver-shim'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLock, faHeart, faUserPlus, faUser } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Axios from 'axios'
 import Vue from 'vue'
 import App from './App'
@@ -11,18 +8,12 @@ import store from './store'
 import { onSuccess, onError, beforeRequestSuccess, beforeRequestError } from '@/interceptors/jwt'
 import VuePageTransition from 'vue-page-transition'
 import vuetify from './plugins/vuetify'
+import './plugins/icons'
 import 'vue-material-design-icons/styles.css'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
 
 Vue.use(VueReCaptcha, { siteKey: process.env.CAPTCHA_SITE_KEY })
 Vue.use(VuePageTransition)
-
-library.add(faLock)
-library.add(faHeart)
-library.add(faUserPlus)
-library.add(faUser)
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
