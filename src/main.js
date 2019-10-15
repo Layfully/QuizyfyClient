@@ -15,7 +15,7 @@ import { VueReCaptcha } from 'vue-recaptcha-v3'
 Vue.use(VueReCaptcha, { siteKey: process.env.CAPTCHA_SITE_KEY })
 Vue.use(VuePageTransition)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = process.env.NODE_ENV === 'development'
 
 Axios.defaults.baseURL = process.env.API_URL
 Axios.interceptors.request.use(beforeRequestSuccess, beforeRequestError)
