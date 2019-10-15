@@ -45,13 +45,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('Authentication', ['logout']),
+    ...mapActions('User', ['logout']),
     toggleDrawer () {
       this.$eventBus.$emit('toggleSidebar')
     }
   },
   computed: {
-    ...mapGetters('Authentication', ['loggedin', 'user']),
+    ...mapGetters('User', ['loggedin', 'user']),
     activeMenuItems () {
       return this.menuItems.filter(i => i.requireAuth === this.loggedin)
     }
