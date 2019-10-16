@@ -1,16 +1,16 @@
 <template>
     <v-app-bar app>
-      <span class="hidden-sm-and-up">
+      <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="toggleDrawer">
         </v-app-bar-nav-icon>
       </span>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-          <v-img contain class="mx-2" max-height="60" max-width="60" src="@/assets/logo.jpg"></v-img>
+          <v-img contain class="hidden-sm-and-down" max-height="60" max-width="60" src="@/assets/logo.jpg"></v-img>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <div class="hidden-xs-only">
+      <div class="hidden-sm-and-down">
         <v-btn color="error" v-for="item in activeMenuItems" :key="item.title" :to='item.path' style="margin: 0 10px;">
           <component :is='item.icon' style='align-self:flex-start; margin-right: 3px'></component>
           {{ item.title }}
