@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import Axios from '@/plugins/axios'
 
 const RESOURCE_NAME = '/quizzes'
 

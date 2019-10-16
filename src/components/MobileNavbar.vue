@@ -48,7 +48,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('Authentication', [
+    ...mapGetters('User', [
       'loggedin']
     ),
     activeMenuItems () {

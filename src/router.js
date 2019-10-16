@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+import Home from '@/views/Home'
 import NotFound from '@/views/NotFound'
-import Quiz from '@/components/quiz/Quiz'
-import QuizList from '@/components/quiz/QuizList'
-import QuizCreate from '@/components/quiz/QuizCreate'
-import UserLogin from '@/components/user/UserLogin'
-import UserRegistration from '@/components/user/UserRegistration'
-import UserProfile from '@/components/user/UserProfile'
-import ConfirmEmail from '@/components/user/ConfirmEmail'
-import ResetPassword from '@/components/user/ResetPassword'
-import PasswordRecovery from '@/components/user/PasswordRecovery'
+import Quiz from '@/views/quiz/Quiz'
+import QuizList from '@/views/quiz/QuizList'
+import QuizCreation from '@/views/quiz/QuizCreation'
+import LoginForm from '@/views/user/LoginForm'
+import RegistrationForm from '@/views/user/RegistrationForm'
+import UserProfile from '@/views/user/UserProfile'
+import EmailConfirmation from '@/views/user/EmailConfirmation'
+import PasswordReset from '@/views/user/PasswordReset'
+import PasswordRecovery from '@/views/user/PasswordRecovery'
 
 Vue.use(Router)
 
@@ -37,24 +37,24 @@ export default new Router({
     {
       path: '/quiz/create',
       name: 'QuizCreate',
-      component: QuizCreate
+      component: QuizCreation
     },
     {
-      path: 'login',
-      name: 'UserLogin',
-      component: UserLogin,
+      path: '/login',
+      name: 'LoginForm',
+      component: LoginForm,
       meta: { transition: 'fade-in-down' }
     },
     {
-      path: 'register',
-      name: 'UserRegistration',
-      component: UserRegistration,
+      path: '/register',
+      name: 'RegistrationForm',
+      component: RegistrationForm,
       meta: { transition: 'fade-in-up' }
     },
     {
       path: '/confirm/:id/:token',
-      name: 'ConfirmEmail',
-      component: ConfirmEmail
+      name: 'EmailConfirmation',
+      component: EmailConfirmation
     },
     {
       path: '/passwordRecovery',
@@ -64,11 +64,11 @@ export default new Router({
     },
     {
       path: '/resetPassword/:id/:token',
-      name: 'ResetPassword',
-      component: ResetPassword
+      name: 'PasswordReset',
+      component: PasswordReset
     },
     {
-      path: 'profile',
+      path: '/profile',
       name: 'UserProfile',
       component: UserProfile
     },

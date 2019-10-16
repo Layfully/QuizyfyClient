@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import Axios from '@/plugins/axios'
 
 const RESOURCE_NAME = '/users'
 
@@ -10,17 +10,17 @@ export default {
   get (id) {
     return Axios.get(`${RESOURCE_NAME}/${id}`)
   },
-  register (userData, token) {
-    userData.recaptchaToken = token
+  register (userData, recaptchaToken) {
+    userData.recaptchaToken = recaptchaToken
     userData.role = 'user'
     return Axios.post(RESOURCE_NAME.concat('/register'), userData)
   },
-  login (userData, token) {
-    userData.recaptchaToken = token
+  login (userData, recaptchaToken) {
+    userData.recaptchaToken = recaptchaToken
     return Axios.post(RESOURCE_NAME.concat('/login'), userData)
   },
-  confirmEmail (id, token) {
-    return Axios.patch(RESOURCE_NAME.concat(`/emailVerification/${id}`), token)
+  confirmEmail (id, verificationToken) {
+    return Axios.patch(RESOURCE_NAME.concat(`/emailVerification/${id}`), verificationToken)
   },
   changePassword (id, userData) {
     return Axios.patch(RESOURCE_NAME.concat(`/passwordRecovery/${id}`), userData)

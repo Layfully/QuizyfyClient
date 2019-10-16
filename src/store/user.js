@@ -34,18 +34,18 @@ const getters = {
 }
 
 const actions = {
-  login ({ commit }, credentials) {
-    return UserService.login(credentials).then((data) => {
+  login ({ commit }, credentials, recaptchaToken) {
+    return UserService.login(credentials, recaptchaToken).then((data) => {
       setUserData(commit, data)
     })
   },
-  register ({ commit }, user) {
-    return UserService.register(user).then((data) => {
+  register ({ commit }, user, recaptchaToken) {
+    return UserService.register(user, recaptchaToken).then((data) => {
       setUserData(commit, data)
     })
   },
   confirmEmail ({ commit }, data) {
-    return UserService.confirmEmail(data.id, data.token).then((data) => {
+    return UserService.confirmEmail(data.id, data.verificationToken).then((data) => {
       setUserData(commit, data)
     })
   },
