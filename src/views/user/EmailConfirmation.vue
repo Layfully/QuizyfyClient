@@ -1,19 +1,13 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
-        <v-card class="elevation-12">
-          <v-toolbar color="primary" dark flat>
-            <v-toolbar-title>Potwierdź email!</v-toolbar-title>
-          </v-toolbar>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn block color="primary" @click="confirmUserEmail()">Potwierdź</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-card class="elevation-12">
+    <v-toolbar color="primary" dark flat>
+      <v-toolbar-title>Potwierdź email!</v-toolbar-title>
+    </v-toolbar>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn block color="primary" @click="confirmUserEmail()">Potwierdź</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 <script>
 import { mapActions } from 'vuex'

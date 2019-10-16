@@ -4,7 +4,13 @@
     <MobileNavbar :menu-items="menuItems" />
     <v-content>
       <vue-page-transition style="height:100%" >
-        <router-view/>
+        <v-container fluid fill-height>
+          <v-layout align-center justify-center>
+            <v-flex xs12 sm8 md5>
+              <router-view/>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </vue-page-transition>
     </v-content>
   </v-app>
