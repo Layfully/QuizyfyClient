@@ -6,7 +6,7 @@
       </span>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-          <v-img height="60" width="60" src="@/assets/logo.jpg"></v-img>
+          <v-img contain class="mx-2" max-height="60" max-width="60" src="@/assets/logo.jpg"></v-img>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
