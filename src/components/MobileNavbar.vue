@@ -1,14 +1,21 @@
 <template>
   <v-navigation-drawer app v-model="drawer" temporary fixed>
-    <v-list nav dense>
+    <v-list nav dense class="no-padding-horizontal">
       <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
-        <v-list-item v-for="item in activeMenuItems" :key="item.title">
-          <v-list-item-title>
-            <v-btn color="error" block :to="item.path">
-              <component :is="item.icon" style="align-self:flex-start"></component>
-              {{ item.title }}
-            </v-btn>
-          </v-list-item-title>
+        <v-layout align-center justify-center class="pb-4">
+          <v-toolbar-title>
+            <router-link to="/" tag="span" class="logo">
+              <v-img contain max-height="80" max-width="80" src="@/assets/logo.jpg"></v-img>
+            </router-link>
+          </v-toolbar-title>
+        </v-layout>
+        <v-list-item v-for="item in activeMenuItems" :key="item.title" :to="item.path" link class="no-padding-horizontal">
+          <v-list-item-icon class="item-icon">
+              <component :is="item.icon" class="icon"></component>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
     </v-list>
@@ -62,3 +69,24 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .logo {
+    cursor: pointer;
+  }
+  .item-icon {
+    padding-left:8px;
+    margin-top:11px !important;
+  }
+
+  .icon {
+    font-size:20px;
+    margin-top:-5px;
+    margin-right:5px;
+  }
+
+  .no-padding-horizontal {
+    padding-left:0;
+    padding-right:0
+  }
+</style>
