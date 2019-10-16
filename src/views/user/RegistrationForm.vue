@@ -49,7 +49,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import UserService from '@/api-services/user.service'
 import { ValidationObserver } from 'vee-validate'
 import InputField from '@/components/InputField'
 import PasswordField from '@/components/PasswordField'
@@ -74,11 +73,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'User/login'
+      login: 'User/login',
+      register: 'User/register'
     }),
     userRegister (user) {
-      this.$recaptcha('register').then((token) => {
-        UserService.register(user, token)
+      this.$recaptcha('register').then((recaptchaToken) => {
+        this.register(user, recaptchaToken)
           .then((data) => this.login(user))
           .then(() => this.$router.push({ path: '/' }))
           .catch((error) => console.log(error))

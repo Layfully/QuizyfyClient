@@ -57,8 +57,8 @@ export default {
     }),
 
     userLogin (credentials) {
-      this.$recaptcha('login').then((token) => {
-        this.login(credentials, token)
+      this.$recaptcha('login').then((recaptchaToken) => {
+        this.login(credentials, recaptchaToken)
           .then(() => this.$router.push('/'))
           .catch(error => console.log(error))
       }).catch((error) => console.log(error))

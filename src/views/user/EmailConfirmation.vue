@@ -14,16 +14,13 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'EmaillConfirmation',
-  created () {
-    this.confirmUserEmail(this.$route.params.id, this.$route.params.token)
-  },
   methods: {
     ...mapActions({
       confirmEmail: 'User/confirmEmail'
     }),
 
-    confirmUserEmail (id, token) {
-      this.confirmEmail({ 'id': id, 'token': token })
+    confirmUserEmail () {
+      this.confirmEmail({ 'id': this.$route.params.id, 'verificationToken': this.$route.params.token })
         .catch(error => console.log(error))
     }
   }
