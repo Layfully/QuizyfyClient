@@ -44,7 +44,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn :disabled="!validated || invalid" color="primary" @click="userRegister(user)">Zarejestruj się</v-btn>
+              <v-btn block :disabled="!validated || invalid" color="primary" @click="userRegister(user)">Zarejestruj się</v-btn>
             </v-card-actions>
           </v-card>
         </ValidationObserver>

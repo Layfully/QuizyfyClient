@@ -8,7 +8,7 @@
           </v-toolbar>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="confirmUserEmail()">Potwierdź</v-btn>
+            <v-btn block color="primary" @click="confirmUserEmail()">Potwierdź</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>

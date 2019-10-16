@@ -32,7 +32,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn :disabled="!validated || invalid" block color="primary" @click="resetPassword(user)">Zmień hasło</v-btn>
+              <v-btn block :disabled="!validated || invalid" color="primary" @click="resetPassword(user)">Zmień hasło</v-btn>
             </v-card-actions>
           </v-card>
         </ValidationObserver>
