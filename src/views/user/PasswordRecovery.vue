@@ -9,21 +9,12 @@
             </v-toolbar>
             <v-card-text>
               <v-form @submit.prevent="sendEmailWithLinkReset">
-                <ValidationProvider name="Email" :rules="{ require:true, email:true }" v-slot="{errors, valid}" :bails="false">
-                    <v-text-field
-                    :error-messages="checkIfFocused(errors, focused.email)"
-                    :error-count="errors.length"
-                    :success="valid"
-                    @focus="focused.email = true"
-                    @blur="focused.email = false"
-                    id="email"
-                    label="Email"
-                    prepend-icon="mdi-email"
+                  <InputField
+                    name="Email"
                     type="email"
-                    v-model="user.email"
-                    required>
-                    </v-text-field>
-                </ValidationProvider>
+                    icon="mdi-email"
+                    :validationRules="{ require:true, email:true }"
+                    v-model="user.email"/>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -38,30 +29,19 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
-import { email } from 'vee-validate/dist/rules'
-
-extend('email', {
-  validate: email.validate,
-  message: 'Podany adres email jest niepoprawny.'
-})
+import { ValidationObserver } from 'vee-validate'
+import InputField from '@/components/InputField'
 
 export default {
   name: 'PasswordRecovery',
   components: {
-    ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
+    InputField
   },
   data () {
     return {
       user: {
         email: ''
-      },
-      focused: {
-        email: false
-      },
-      valid: {
-        email: false
       }
     }
   },
@@ -73,9 +53,6 @@ export default {
       this.generatePasswordResetToken(email)
         .then(() => this.$router.push({ path: '/' }))
         .catch((error) => console.log(error))
-    },
-    checkIfFocused (errors, focus) {
-      return focus ? null : errors
     }
   }
 }

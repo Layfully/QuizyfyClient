@@ -13,6 +13,30 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import MobileNavbar from '@/components/MobileNavbar.vue'
+import { between, required, email } from 'vee-validate/dist/rules'
+import { extend } from 'vee-validate'
+
+extend('passwordMatch', {
+  validate: (value, { other }) => value === other,
+  message: 'Hasła nie są identyczne.',
+  params: [{ name: 'other', isTarget: true }]
+})
+extend('between', {
+  validate: (value, { min, max }) => (value.length > min && value.length < max),
+  message: '{_field_} musi składać się z więcej niż {min} znaków.',
+  params: between.params
+})
+
+extend('require', {
+  validate: required.validate,
+  computesRequired: required.computesRequired,
+  message: 'Pole {_field_} jest wymagane.'
+})
+
+extend('email', {
+  validate: email.validate,
+  message: 'Podany adres email jest niepoprawny.'
+})
 
 export default {
   components: {
