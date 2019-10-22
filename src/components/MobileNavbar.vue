@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer app v-model="drawer" temporary fixed>
-    <v-list nav dense class="no-padding-horizontal">
+    <v-list nav dense class="px-0">
       <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
         <v-layout align-center justify-center class="pb-4">
           <v-toolbar-title>
@@ -9,8 +9,8 @@
             </router-link>
           </v-toolbar-title>
         </v-layout>
-        <v-list-item v-for="item in activeMenuItems" :key="item.title" :to="item.path" link class="no-padding-horizontal">
-          <v-list-item-icon class="item-icon">
+        <v-list-item v-for="item in activeMenuItems" :key="item.title" :to="item.path" link class="px-0">
+          <v-list-item-icon class="pl-2 mt-3">
               <component :is="item.icon" class="icon"></component>
           </v-list-item-icon>
           <v-list-item-content>
@@ -69,24 +69,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .logo {
-    cursor: pointer;
-  }
-  .item-icon {
-    padding-left:8px;
-    margin-top:11px !important;
-  }
-
-  .icon {
-    font-size:20px;
-    margin-top:-5px;
-    margin-right:5px;
-  }
-
-  .no-padding-horizontal {
-    padding-left:0;
-    padding-right:0
-  }
-</style>

@@ -11,7 +11,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="hidden-sm-and-down">
-        <v-btn color="error" v-for="item in activeMenuItems" :key="item.title" :to='item.path' style="margin: 0 10px;">
+        <v-btn color="error" v-for="item in activeMenuItems" :key="item.title" :to='item.path' class="mx-2">
           <component :is='item.icon' class="icon"></component>
           {{ item.title }}
         </v-btn>
