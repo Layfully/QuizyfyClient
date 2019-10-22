@@ -47,6 +47,7 @@ import InputField from '@/components/InputField'
 import InputImage from '@/components/InputImage'
 import QuestionCreation from '@/components/question/QuestionCreation'
 import Camera from 'vue-material-design-icons/Camera'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'QuizCreation',
@@ -67,13 +68,21 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      create: 'Quiz/create'
+    }),
     createQuiz () {
-      QuizService.create(this.quiz, this.image).then(() => {
+
+      this.create(this.quiz, this.image).then(() => {
         this.quiz = {
-          name: '',
-          description: '',
-          questions: ''
+            name: '',
+            description: '',
+            questions: ''
         }
+      })
+
+      QuizService.create(this.quiz, this.image).then(() => {
+  
         this.image = ''
         this.shouldStartQuestionCreation = false
       }).catch((error) => {
