@@ -5,14 +5,14 @@
         </v-app-bar-nav-icon>
       </span>
       <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">
+        <router-link to="/" tag="span" class="logo">
           <v-img contain class="hidden-sm-and-down" max-height="60" max-width="60" src="@/assets/logo.jpg"></v-img>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="hidden-sm-and-down">
         <v-btn color="error" v-for="item in activeMenuItems" :key="item.title" :to='item.path' style="margin: 0 10px;">
-          <component :is='item.icon' style='align-self:flex-start; margin-right: 3px'></component>
+          <component :is='item.icon' class="icon"></component>
           {{ item.title }}
         </v-btn>
       </div>
@@ -60,7 +60,5 @@ export default {
 </script>
 
 <style scoped>
-.logo {
-  height: 100%;
-}
+
 </style>
