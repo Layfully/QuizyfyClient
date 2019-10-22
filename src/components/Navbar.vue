@@ -35,10 +35,6 @@ export default {
     BookMultiple
   },
   props: {
-    appTitle: {
-      type: String,
-      required: true
-    },
     menuItems: {
       type: Array,
       required: true

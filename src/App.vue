@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <Navbar :appTitle="appTitle" :menu-items="menuItems" />
+    <Navbar :menu-items="menuItems" />
     <MobileNavbar :menu-items="menuItems" />
     <vue-page-transition style="height:100%" >
     <component :is="layout">
@@ -55,7 +55,6 @@ export default {
   },
   data () {
     return {
-      appTitle: 'Quizyfy',
       menuItems: [
         {
           title: 'Rejestracja',
