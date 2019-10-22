@@ -11,6 +11,8 @@
         :prepend-icon="icon"
         :append-outer-icon="appendIcon"
         :value="value"
+        :outlined="outlined"
+        :dense="dense"
         @focus="isFocused = true"
         @blur="isFocused = false"
         @click:append-outer="$emit('click-append')"
@@ -46,6 +48,12 @@ export default {
     },
     appendIcon: {
       type: String
+    },
+    outlined: {
+      type: Boolean
+    },
+    dense: {
+      type: Boolean
     }
   },
   data () {
