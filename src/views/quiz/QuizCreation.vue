@@ -1,49 +1,45 @@
 <template>
-  <v-layout justify-center>
-    <v-flex xs11 sm9 md6>
-      <v-form>
-        <v-card>
-          <v-card-title class="text-center d-block">Kreator quizów</v-card-title>
-          <v-card-text>
-            <InputImage v-model="quiz.image" class="my-12">
-              <div slot="activator">
-                <v-img v-ripple v-if="!quiz.image.imageURL" class="grey lighten-3">
-                  <v-layout justify-center align-center style="height:150px; cursor:pointer">
-                    <Camera class="icon"></Camera>
-                    <span>Dodaj zdjęcie</span>
-                  </v-layout>
-                </v-img>
-                <v-img v-ripple v-else :src="quiz.image.imageURL">
-                </v-img>
-              </div>
-            </InputImage>
-            <InputField
-              name="Nazwa quizu"
-              type="text"
-              outlined
-              :validationRules="{ require:true }"
-              dense
-              v-model="quiz.name"/>
-            <v-textarea
-              auto-grow
-              dense
-              clearable
-              outlined
-              label="Opis quizu"
-              rows="1"
-              v-model="quiz.description"/>
-            <QuestionCreation v-for="(question, index) in quiz.questions" :index=index :key="index" @questionChange="questionChange()"/>
-          </v-card-text>
-          <v-card-actions>
-            <v-layout justify-center>
-              <v-btn large color="primary" @click="addQuestion()">Dodaj pytanie</v-btn>
-              <v-btn large color="success" @click="createQuiz()">Utwórz quiz</v-btn>
-            </v-layout>
-          </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-flex>
-  </v-layout>
+  <v-form>
+    <v-card>
+      <v-card-title class="text-center d-block">Kreator quizów</v-card-title>
+      <v-card-text>
+        <InputImage v-model="quiz.image" class="my-12">
+          <div slot="activator">
+            <v-img v-ripple v-if="!quiz.image.imageURL" class="grey lighten-3">
+              <v-layout justify-center align-center style="height:150px; cursor:pointer">
+                <Camera class="icon"></Camera>
+                <span>Dodaj zdjęcie</span>
+              </v-layout>
+            </v-img>
+            <v-img v-ripple v-else :src="quiz.image.imageURL">
+            </v-img>
+          </div>
+        </InputImage>
+        <InputField
+          name="Nazwa quizu"
+          type="text"
+          outlined
+          :validationRules="{ require:true }"
+          dense
+          v-model="quiz.name"/>
+        <v-textarea
+          auto-grow
+          dense
+          clearable
+          outlined
+          label="Opis quizu"
+          rows="1"
+          v-model="quiz.description"/>
+        <QuestionCreation v-for="(question, index) in quiz.questions" :index=index :key="index" @questionChange="questionChange()"/>
+      </v-card-text>
+      <v-card-actions>
+        <v-layout justify-center>
+          <v-btn color="primary" @click="addQuestion()">Dodaj pytanie</v-btn>
+          <v-btn color="success" @click="createQuiz()">Utwórz quiz</v-btn>
+        </v-layout>
+      </v-card-actions>
+    </v-card>
+  </v-form>
 </template>
 <script>
 import QuizService from '@/api-services/quiz.service'
