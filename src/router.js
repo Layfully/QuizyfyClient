@@ -30,14 +30,14 @@ export default new Router({
       component: QuizList
     },
     {
-      path: '/quiz/:quizId',
-      name: 'Quiz',
-      component: Quiz
-    },
-    {
       path: '/quiz/create',
       name: 'QuizCreate',
       component: QuizCreation
+    },
+    {
+      path: '/quiz/:quizId',
+      name: 'Quiz',
+      component: Quiz
     },
     {
       path: '/login',
