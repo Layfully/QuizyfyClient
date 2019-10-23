@@ -17,7 +17,7 @@
 <script>
 import Default from '@/components/layouts/Default.vue'
 import Large from '@/components/layouts/Large.vue'
-import None from '@/components/layouts/None.vue'
+import FullWidth from '@/components/layouts/FullWidth.vue'
 import Navbar from '@/components/Navbar.vue'
 import MobileNavbar from '@/components/MobileNavbar.vue'
 
@@ -51,7 +51,7 @@ export default {
   components: {
     Default,
     Large,
-    None,
+    FullWidth,
     Navbar,
     MobileNavbar
   },
