@@ -30,7 +30,12 @@
           label="Opis quizu"
           rows="1"
           v-model="quiz.description"/>
-        <QuestionCreation v-for="(question, index) in quiz.questions" :index=index :key="index" @questionChange="questionChange()"/>
+        <QuestionCreation
+          v-for="(question, index) in quiz.questions"
+          :index="index"
+          :key="index"
+          :question="quiz.questions[index]"
+          @questionDelete="deleteQuestion"/>
       </v-card-text>
       <v-card-actions>
         <v-layout justify-center>
@@ -83,10 +88,10 @@ export default {
       })
     },
     addQuestion () {
-      this.quiz.questions.push({ name: '' })
+      this.quiz.questions.push({ text: '', choices: [] })
     },
-    questionChange (question, index) {
-      this.quiz.questions[index] = question
+    deleteQuestion (index) {
+      this.$delete(this.quiz.questions, index)
     }
   }
 }
