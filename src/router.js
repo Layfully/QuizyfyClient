@@ -22,7 +22,7 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      meta: { transition: 'zoom', layout: 'None' }
+      meta: { transition: 'zoom', layout: 'FillWidth' }
     },
     {
       path: '/quiz/list/:pageNumber',

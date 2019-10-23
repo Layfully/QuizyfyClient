@@ -5,6 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'None'
+  name: 'FullWidth'
 }
 </script>
