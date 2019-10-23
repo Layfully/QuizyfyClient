@@ -1,8 +1,14 @@
 <template>
-  <v-card class="my-5">
-    <v-card-title>
-      Pytanie {{index + 1}}
-    </v-card-title>
+  <v-card color="grey lighten-5" class="my-5">
+    <v-container>
+      <v-row>
+        <v-card-title>Pytanie {{ index + 1 }}</v-card-title>
+        <v-spacer></v-spacer>
+        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="emitQuestionDeleteEvent()">
+          <v-icon dark>mdi-delete</v-icon>
+        </v-btn>
+      </v-row>
+    </v-container>
     <v-card-text>
         <InputField
           name="Treść pytania"
@@ -10,12 +16,16 @@
           outlined
           dense
           :validationRules="{ require:true }"
-          @change="emitQuestionChangeEvent()"
           v-model="question.text"/>
-        <ChoiceCreation v-for="(choice, index) in question.choices" :index=index :key=index @choiceChange="choiceChange()"/>
+        <ChoiceCreation
+          v-for="(choice, index) in question.choices"
+          :index="index"
+          :key="index"
+          :choice="question.choices[index]"
+          @choiceDelete="deleteChoice"/>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" @click="addChoice()">Dodaj odpowiedź</v-btn>
+      <v-btn color="primary" depressed @click="addChoice()">Dodaj odpowiedź</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -30,24 +40,26 @@ export default {
     InputField,
     ChoiceCreation
   },
-  props: { index: { required: true } },
-  data () {
-    return {
-      question: {
-        text: '',
-        choices: []
-      }
+  model: { prop: 'question' },
+  props: {
+    index: {
+      type: Number,
+      required: true
+    },
+    question: {
+      type: Object,
+      required: true
     }
   },
   methods: {
     addChoice () {
       this.question.choices.push({ text: '', isRight: false })
     },
-    emitQuestionChangeEvent () {
-      this.$emit('questionChange', this.question, this.index)
+    deleteChoice (index) {
+      this.$delete(this.question.choices, index)
     },
-    choiceChange (choice, index) {
-      this.question.choices[index] = choice
+    emitQuestionDeleteEvent () {
+      this.$emit('questionDelete', this.index)
     }
   }
 }
