@@ -1,14 +1,25 @@
 <template>
-  <div>
-    <InputField
-    :name="'Treść odpowiedzi ' + (index + 1)"
-    type="text"
-    outlined
-    dense
-    :validationRules="{ require:true }"
-    v-model="choice.text"/>
-    <v-switch v-model="choice.isRight" :label="switchLabel" @change="emitChoiceChangeEvent"></v-switch>
-  </div>
+  <v-card class="my-2">
+    <v-container>
+      <v-row>
+        <v-card-title class="title">Odpowiedź {{ index + 1 }}</v-card-title>
+        <v-spacer></v-spacer>
+        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="emitChoiceDeleteEvent()">
+          <v-icon dark>mdi-delete</v-icon>
+        </v-btn>
+      </v-row>
+    </v-container>
+    <v-card-text>
+      <InputField
+      :name="'Treść odpowiedzi ' + (index + 1)"
+      type="text"
+      outlined
+      dense
+      :validationRules="{ require:true }"
+      v-model="choice.text"/>
+      <v-switch v-model="choice.isRight" :label="switchLabel"></v-switch>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -19,18 +30,20 @@ export default {
   components: {
     InputField
   },
-  props: { index: { required: true } },
-  data () {
-    return {
-      choice: {
-        text: '',
-        isRight: false
-      }
+  model: { prop: 'choice' },
+  props: {
+    index: {
+      type: Number,
+      required: true
+    },
+    choice: {
+      type: Object,
+      required: true
     }
   },
   methods: {
-    emitChoiceChangeEvent () {
-      this.$emit('choiceChange', this.choice, this.index)
+    emitChoiceDeleteEvent () {
+      this.$emit('choiceDelete', this.index)
     }
   },
   computed: {
