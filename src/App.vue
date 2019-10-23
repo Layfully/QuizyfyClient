@@ -1,7 +1,7 @@
 <template>
   <v-app light>
-    <Navbar :menu-items="menuItems" />
-    <MobileNavbar :menu-items="menuItems" />
+    <Navbar/>
+    <MobileNavbar/>
     <v-content>
       <vue-page-transition class="fill-height" >
       <component :is="layout">
@@ -55,36 +55,6 @@ export default {
     Navbar,
     MobileNavbar
   },
-  data () {
-    return {
-      menuItems: [
-        {
-          title: 'Rejestracja',
-          path: { name: 'RegistrationForm' },
-          icon: 'Face',
-          requireAuth: false
-        },
-        {
-          title: 'Logowanie',
-          path: { name: 'LoginForm' },
-          icon: 'LockOpen',
-          requireAuth: false
-        },
-        {
-          title: 'Wyloguj się',
-          path: { name: 'Home' },
-          icon: 'Logout',
-          requireAuth: true
-        },
-        {
-          title: 'Katalog Quizów',
-          path: { name: 'QuizList', params: { pageNumber: 1 } },
-          icon: 'BookMultiple',
-          requireAuth: false
-        }
-      ]
-    }
-  },
   computed: {
     layout () {
       return (this.$route.meta.layout || process.env.VUE_APP_DEFAULT_LAYOUT)
@@ -94,13 +64,7 @@ export default {
 </script>
 
 <style>
-  .logo {
+  .navbar--logo--interactive {
     cursor: pointer;
-  }
-
-  .icon {
-    font-size:20px;
-    margin-top:-5px;
-    margin-right:5px;
   }
 </style>
