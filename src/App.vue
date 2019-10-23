@@ -2,13 +2,15 @@
   <v-app light>
     <Navbar :menu-items="menuItems" />
     <MobileNavbar :menu-items="menuItems" />
-    <vue-page-transition class="fill-height" >
-    <component :is="layout">
-      <vue-page-transition class="fill-height">
-        <router-view/>
+    <v-content>
+      <vue-page-transition class="fill-height" >
+      <component :is="layout">
+        <vue-page-transition class="fill-height" style="width:100%">
+          <router-view/>
+        </vue-page-transition>
+      </component>
       </vue-page-transition>
-    </component>
-    </vue-page-transition>
+    </v-content>
   </v-app>
 </template>
 
