@@ -11,7 +11,7 @@ const getters = {
 const actions = {
   create ({ commit }, quizData, quizImage) {
     return QuizService.create(quizData, quizImage).then((data) => {
-      console.log('created new quiz')
+      console.log('created new quiz -- this message is to remind me about maybe setting data returned by response or informing user.')
     })
   }
 }
