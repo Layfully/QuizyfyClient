@@ -22,7 +22,7 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      meta: { transition: 'zoom' }
+      meta: { transition: 'zoom', layout: 'FillWidth' }
     },
     {
       path: '/quiz/list/:pageNumber',
@@ -32,7 +32,8 @@ export default new Router({
     {
       path: '/quiz/create',
       name: 'QuizCreate',
-      component: QuizCreation
+      component: QuizCreation,
+      meta: { layout: 'Large' }
     },
     {
       path: '/quiz/:quizId',

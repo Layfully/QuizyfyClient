@@ -1,18 +1,18 @@
 <template>
     <v-app-bar app>
-      <span class="hidden-sm-and-up">
+      <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="toggleDrawer">
         </v-app-bar-nav-icon>
       </span>
       <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">
-          <v-img contain class="mx-2" max-height="60" max-width="60" src="@/assets/logo.jpg"></v-img>
+        <router-link to="/" tag="span" class="navbar--logo--interactive">
+          <v-img contain class="hidden-sm-and-down" max-height="60" max-width="60" src="@/assets/logo.jpg"></v-img>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <div class="hidden-xs-only">
-        <v-btn color="error" v-for="item in activeMenuItems" :key="item.title" :to='item.path' style="margin: 0 10px;">
-          <component :is='item.icon' style='align-self:flex-start; margin-right: 3px'></component>
+      <div class="hidden-sm-and-down">
+        <v-btn color="error" v-for="item in activeMenuItems" :key="item.title" :to='item.path' class="mx-2">
+          <component :is='item.icon' class="title mt-n1 mr-1"></component>
           {{ item.title }}
         </v-btn>
       </div>
@@ -34,16 +34,6 @@ export default {
     Logout,
     BookMultiple
   },
-  props: {
-    appTitle: {
-      type: String,
-      required: true
-    },
-    menuItems: {
-      type: Array,
-      required: true
-    }
-  },
   methods: {
     ...mapActions('User', ['logout']),
     toggleDrawer () {
@@ -51,16 +41,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('User', ['loggedin', 'user']),
+    ...mapGetters({
+      loggedin: 'User/loggedin',
+      menuItems: 'menuItems'
+    }),
     activeMenuItems () {
       return this.menuItems.filter(i => i.requireAuth === this.loggedin)
     }
   }
 }
 </script>
-
-<style scoped>
-.logo {
-  height: 100%;
-}
-</style>
