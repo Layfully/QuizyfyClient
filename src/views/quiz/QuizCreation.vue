@@ -3,15 +3,24 @@
     <v-card>
       <v-card-title class="text-center d-block">Kreator quizów</v-card-title>
       <v-card-text>
-        <InputImage v-model="image" class="my-12">
+        <InputImage
+          name="Obraz quizu"
+          :validationRules="{ dimensions: [1024, 1024], image:true }"
+          alertElevation="1"
+          alertType="error"
+          borderLocation="right"
+          :alertColoredBorder=true
+          :alertDense=true
+          v-model="quizImage"
+          class="my-12">
           <div slot="activator">
-            <v-img v-ripple v-if="!image.imageURL" class="grey lighten-3">
+            <v-img v-ripple v-if="!quizImage.imageURL" class="grey lighten-3" style="height:150px;">
               <v-layout justify-center align-center style="height:150px; cursor:pointer">
                 <Camera class="icon"></Camera>
                 <span>Dodaj zdjęcie</span>
               </v-layout>
             </v-img>
-            <v-img v-ripple v-else :src="image.imageURL">
+            <v-img v-ripple v-else :src="quizImage.imageURL">
             </v-img>
           </div>
         </InputImage>
@@ -68,7 +77,7 @@ export default {
         description: '',
         questions: []
       },
-      image: {}
+      quizImage: {}
     }
   },
   methods: {
@@ -76,13 +85,13 @@ export default {
       create: 'Quiz/create'
     }),
     createQuiz () {
-      this.create(this.quiz, this.image).then(() => {
+      this.create(this.quiz, this.quizImage).then(() => {
         this.quiz = {
           name: '',
           description: '',
           questions: []
         }
-        this.image = {}
+        this.quizImage = {}
       }).catch((error) => {
         alert(error)
       })
