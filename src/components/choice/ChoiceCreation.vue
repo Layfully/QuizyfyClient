@@ -17,7 +17,7 @@
       dense
       :validationRules="{ require:true }"
       v-model="choice.text"/>
-      <v-switch v-model="choice.isRight" :label="switchLabel"></v-switch>
+      <v-switch v-model="choice.isCorrect" :label="switchLabel"></v-switch>
     </v-card-text>
   </v-card>
 </template>
@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     switchLabel () {
-      return this.choice.isRight ? 'Odpowiedź poprawna' : 'Odpowiedź niepoprawna'
+      return this.choice.isCorrect ? 'Odpowiedź poprawna' : 'Odpowiedź niepoprawna'
     }
   }
 }

@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     addChoice () {
-      this.question.choices.push({ text: '', isRight: false })
+      this.question.choices.push({ text: '', isCorrect: false })
     },
     deleteChoice (index) {
       this.$delete(this.question.choices, index)
