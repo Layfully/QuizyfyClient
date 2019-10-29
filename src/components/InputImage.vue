@@ -5,15 +5,9 @@
     v-slot="{validate}"
     :bails="false"
     class="d-block">
-    <v-layout justify-center>
-      <v-flex md5>
-        <v-card>
-          <div @click="launchFilePicker()">
-            <slot></slot>
-          </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
+      <div @click="launchFilePicker()">
+        <slot></slot>
+      </div>
     <input
       type="file"
       ref="image"
@@ -23,7 +17,6 @@
     <div class="mb-4"></div>
     <transition-group tag="div" name="fade-transition">
       <div v-for="(error, index) in validationErrors" :key="error">
-        <div>
           <v-fade-transition>
             <v-alert
               :dense="alertDense"
@@ -37,10 +30,8 @@
               {{error}}
             </v-alert>
           </v-fade-transition>
-        </div>
       </div>
     </transition-group>
-
   </ValidationProvider>
 </template>
 
