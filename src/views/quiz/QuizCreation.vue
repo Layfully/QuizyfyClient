@@ -83,9 +83,10 @@ export default {
           questions: []
         }
         this.image = {}
-      }).catch((error) => {
-        alert(error)
       })
+      /**
+       * @todo Implement error handling for createQuiz here.
+       */
     },
     addQuestion () {
       this.quiz.questions.push({ text: '', choices: [] })
