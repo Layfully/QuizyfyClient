@@ -2,14 +2,14 @@
   <ValidationProvider
     :name="name"
     :rules="validationRules"
-    v-slot="{validate, errors}"
+    v-slot="{validate}"
     :bails="false"
     class="d-block">
     <v-layout justify-center>
       <v-flex md5>
         <v-card>
           <div @click="launchFilePicker()">
-            <slot name="activator"></slot>
+            <slot></slot>
           </div>
         </v-card>
       </v-flex>
@@ -21,15 +21,26 @@
       @change="onFileChange($event.target.name, $event.target.files, validate)"
       class="d-none">
     <div class="mb-4"></div>
-    <v-alert
-      :dense="alertDense"
-      :colored-border="alertColoredBorder"
-      :elevation="alertElevation"
-      :border="borderLocation"
-      :type="alertType"
-      v-for="error in errors" :key="error">
-      {{ error }}
-    </v-alert>
+    <transition-group tag="div" name="fade-transition">
+      <div v-for="(error, index) in validationErrors" :key="error">
+        <div>
+          <v-fade-transition>
+            <v-alert
+              :dense="alertDense"
+              :colored-border="alertColoredBorder"
+              :elevation="alertElevation"
+              :border="borderLocation"
+              :type="alertType"
+              dismissible
+              @input="deleteError(index)"
+              >
+              {{error}}
+            </v-alert>
+          </v-fade-transition>
+        </div>
+      </div>
+    </transition-group>
+
   </ValidationProvider>
 </template>
 
@@ -72,13 +83,22 @@ export default {
       type: Boolean
     }
   },
+  data () {
+    return {
+      validationErrors: []
+    }
+  },
   methods: {
     launchFilePicker () {
       this.$refs.image.click()
     },
+    deleteError (index) {
+      this.$delete(this.validationErrors, index)
+    },
     async onFileChange (fieldName, file, validate) {
-      let valid = (await validate(Array.from(file))).valid
-      if (valid) {
+      let validation = await validate(Array.from(file))
+      this.validationErrors = validation.errors
+      if (validation.valid) {
         let imageFile = file[0]
         let formData = new FormData()
         let imageURL = URL.createObjectURL(imageFile)
@@ -91,3 +111,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .fade-transition-enter-active{
+    transition: all .5s ease;
+  }
+</style>
