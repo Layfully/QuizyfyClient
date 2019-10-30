@@ -11,25 +11,26 @@
     </v-container>
     <v-card-text>
       <InputImage
-        name="Obraz quizu"
+        name="Obraz pytania"
         :validationRules="{ dimensions: [512, 512], image:true }"
         alertElevation="1"
         alertType="error"
         borderLocation="right"
         :alertColoredBorder=true
         :alertDense=true
-        v-model="question.image"
+        v-model="image"
+        @input="uploadImage"
         class="mb-7">
         <v-layout justify-center>
           <v-flex md4>
             <v-card>
-                <v-img v-ripple v-if="!question.image.imageURL" class="grey lighten-3" style="height:100px;">
+                <v-img v-ripple v-if="!image.imageURL" class="grey lighten-3" style="height:100px;">
                   <v-layout justify-center align-center style="height:100px; cursor:pointer">
                     <Camera class="icon"></Camera>
                     <span>Dodaj zdjęcie pomocnicze</span>
                   </v-layout>
                 </v-img>
-                <v-img v-ripple v-else :src="question.image.imageURL">
+                <v-img v-ripple v-else :src="image.imageURL">
                 </v-img>
             </v-card>
           </v-flex>
@@ -60,6 +61,7 @@ import InputField from '@/components/InputField'
 import InputImage from '@/components/InputImage'
 import ChoiceCreation from '@/components/choice/ChoiceCreation'
 import Camera from 'vue-material-design-icons/Camera'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'QuestionCreation',
@@ -69,6 +71,12 @@ export default {
     Camera,
     ChoiceCreation
   },
+  data () {
+    return {
+      image: {}
+    }
+  },
+
   model: { prop: 'question' },
   props: {
     index: {
@@ -81,6 +89,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      upload: 'Image/upload'
+    }),
     addChoice () {
       this.question.choices.push({ text: '', isRight: false })
     },
@@ -89,6 +100,11 @@ export default {
     },
     emitQuestionDeleteEvent () {
       this.$emit('questionDelete', this.index)
+    },
+    uploadImage () {
+      this.upload(this.image).then((data) => {
+        this.question.imageId = data.id
+      })
     }
   }
 }

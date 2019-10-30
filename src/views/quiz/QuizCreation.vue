@@ -12,6 +12,7 @@
           :alertColoredBorder=true
           :alertDense=true
           v-model="quizImage"
+          @input="uploadImage"
           class="my-12">
           <v-layout justify-center>
             <v-flex md5>
@@ -81,21 +82,24 @@ export default {
       quiz: {
         name: '',
         description: '',
-        questions: []
+        questions: [],
+        imageId: -1
       },
       quizImage: {}
     }
   },
   methods: {
     ...mapActions({
-      create: 'Quiz/create'
+      create: 'Quiz/create',
+      upload: 'Image/upload'
     }),
     createQuiz () {
-      this.create(this.quiz, this.quizImage).then(() => {
+      this.create(this.quiz).then(() => {
         this.quiz = {
           name: '',
           description: '',
-          questions: []
+          questions: [],
+          imageId: -1
         }
         this.quizImage = {}
       }).catch((error) => {
@@ -103,10 +107,17 @@ export default {
       })
     },
     addQuestion () {
-      this.quiz.questions.push({ text: '', choices: [], image: {} })
+      this.quiz.questions.push({ text: '', choices: [], imageId: -1 })
     },
     deleteQuestion (index) {
       this.$delete(this.quiz.questions, index)
+    },
+    uploadImage () {
+      this.upload(this.quizImage).then((data) => {
+        this.quiz.imageId = data.id
+        console.log(data)
+        console.log(this.quiz.imageId)
+      })
     }
   }
 }

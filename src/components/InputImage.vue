@@ -11,7 +11,7 @@
     <input
       type="file"
       ref="image"
-      :name="name"
+      name="image"
       @change="onFileChange($event.target.name, $event.target.files, validate)"
       class="d-none">
     <div class="mb-4"></div>
