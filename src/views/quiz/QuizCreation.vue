@@ -3,15 +3,18 @@
     <v-card>
       <v-card-title class="text-center d-block">Kreator quizów</v-card-title>
       <v-card-text>
-        <InputImage v-model="image" class="my-12">
+        <InputImage
+          :value="quiz.image"
+          @input="updateQuiz({image: $event})"
+          class="my-12">
           <div slot="activator">
-            <v-img v-ripple v-if="!image.imageURL" class="grey lighten-3">
+            <v-img v-ripple v-if="!quiz.image.imageURL" class="grey lighten-3">
               <v-layout justify-center align-center style="height:150px; cursor:pointer">
                 <Camera class="icon"></Camera>
                 <span>Dodaj zdjęcie</span>
               </v-layout>
             </v-img>
-            <v-img v-ripple v-else :src="image.imageURL">
+            <v-img v-ripple v-else :src="quiz.image.imageURL">
             </v-img>
           </div>
         </InputImage>
@@ -20,27 +23,27 @@
           type="text"
           outlined
           :validationRules="{ require:true }"
-          dense
-          v-model="quiz.name"/>
+          :value="quiz.name"
+          @input="updateQuiz({name: $event})"
+          dense/>
         <v-textarea
           auto-grow
           dense
           clearable
           outlined
+          :value="quiz.description"
+          @input="updateQuiz({description: $event})"
           label="Opis quizu"
-          rows="1"
-          v-model="quiz.description"/>
+          rows="1"/>
         <QuestionCreation
           v-for="(question, index) in quiz.questions"
-          :index="index"
-          :key="index"
-          :question="quiz.questions[index]"
-          @questionDelete="deleteQuestion"/>
+          :questionIndex="index"
+          :key="index"/>
       </v-card-text>
       <v-card-actions>
         <v-layout justify-center>
-          <v-btn color="primary" @click="addQuestion()">Dodaj pytanie</v-btn>
-          <v-btn color="success" @click="createQuiz()">Utwórz quiz</v-btn>
+          <v-btn color="primary" @click="addQuestion">Dodaj pytanie</v-btn>
+          <v-btn color="success" @click="createQuiz">Utwórz quiz</v-btn>
         </v-layout>
       </v-card-actions>
     </v-card>
@@ -51,7 +54,7 @@ import InputField from '@/components/InputField'
 import InputImage from '@/components/InputImage'
 import QuestionCreation from '@/components/question/QuestionCreation'
 import Camera from 'vue-material-design-icons/Camera'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'QuizCreation',
@@ -61,38 +64,25 @@ export default {
     QuestionCreation,
     Camera
   },
-  data () {
-    return {
-      quiz: {
-        name: '',
-        description: '',
-        questions: []
-      },
-      image: {}
-    }
+  computed: {
+    ...mapGetters('Quiz', {
+      quiz: 'newQuiz'
+    })
   },
   methods: {
-    ...mapActions({
-      create: 'Quiz/create'
+    ...mapActions('Quiz', {
+      create: 'create'
     }),
+    ...mapMutations('Quiz', {
+      addQuestion: 'addQuestion',
+      updateQuiz: 'updateQuiz'
+    }),
+
     createQuiz () {
-      this.create(this.quiz, this.image).then(() => {
-        this.quiz = {
-          name: '',
-          description: '',
-          questions: []
-        }
-        this.image = {}
-      })
+      this.create(this.quiz)
       /**
        * @todo Implement error handling for createQuiz here.
        */
-    },
-    addQuestion () {
-      this.quiz.questions.push({ text: '', choices: [] })
-    },
-    deleteQuestion (index) {
-      this.$delete(this.quiz.questions, index)
     }
   }
 }
