@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import User from '@/store/user'
+import Quiz from '@/store/quiz'
 
 Vue.use(Vuex)
 
@@ -53,6 +54,7 @@ export default new Vuex.Store({
   mutations,
   getters,
   modules: {
-    User
+    User,
+    Quiz
   }
 })

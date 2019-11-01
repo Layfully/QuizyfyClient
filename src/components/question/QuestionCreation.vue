@@ -1,8 +1,14 @@
 <template>
-  <v-card class="my-5">
-    <v-card-title>
-      Pytanie {{index + 1}}
-    </v-card-title>
+  <v-card color="grey lighten-5" class="my-5">
+    <v-container>
+      <v-row>
+        <v-card-title>Pytanie {{ questionIndex + 1 }}</v-card-title>
+        <v-spacer></v-spacer>
+        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeQuestion(questionIndex)">
+          <v-icon dark>mdi-delete</v-icon>
+        </v-btn>
+      </v-row>
+    </v-container>
     <v-card-text>
         <InputField
           name="Treść pytania"
@@ -10,12 +16,16 @@
           outlined
           dense
           :validationRules="{ require:true }"
-          @change="emitQuestionChangeEvent()"
-          v-model="question.text"/>
-        <ChoiceCreation v-for="(choice, index) in question.choices" :index=index :key=index @choiceChange="choiceChange()"/>
+          :value="question.text"
+          @input="setQuestion({questionIndex, text: $event })"/>
+        <ChoiceCreation
+          v-for="(choice, choiceIndex) in question.choices"
+          :choiceIndex="choiceIndex"
+          :questionIndex="questionIndex"
+          :key="choiceIndex"/>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" @click="addChoice()">Dodaj odpowiedź</v-btn>
+      <v-btn color="primary" depressed @click="addChoice(questionIndex)">Dodaj odpowiedź</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -23,6 +33,8 @@
 <script>
 import InputField from '@/components/InputField'
 import ChoiceCreation from '@/components/choice/ChoiceCreation'
+import { mapMutations } from 'vuex'
+import { ADD_CHOICE, REMOVE_QUESTION, SET_QUESTION } from '@/store/mutations'
 
 export default {
   name: 'QuestionCreation',
@@ -30,25 +42,23 @@ export default {
     InputField,
     ChoiceCreation
   },
-  props: { index: { required: true } },
-  data () {
-    return {
-      question: {
-        text: '',
-        choices: []
-      }
+  props: {
+    questionIndex: {
+      type: Number,
+      required: true
+    }
+  },
+  computed: {
+    question () {
+      return this.$store.getters['Quiz/newQuestion'](this.questionIndex)
     }
   },
   methods: {
-    addChoice () {
-      this.question.choices.push({ text: '', isRight: false })
-    },
-    emitQuestionChangeEvent () {
-      this.$emit('questionChange', this.question, this.index)
-    },
-    choiceChange (choice, index) {
-      this.question.choices[index] = choice
-    }
+    ...mapMutations('Quiz', {
+      addChoice: ADD_CHOICE,
+      setQuestion: SET_QUESTION,
+      removeQuestion: REMOVE_QUESTION
+    })
   }
 }
 </script>
