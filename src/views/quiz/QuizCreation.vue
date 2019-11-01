@@ -5,7 +5,7 @@
       <v-card-text>
         <InputImage
           :value="quiz.image"
-          @input="updateQuiz({image: $event})"
+          @input="setQuiz({image: $event})"
           class="my-12">
           <div slot="activator">
             <v-img v-ripple v-if="!quiz.image.imageURL" class="grey lighten-3">
@@ -24,7 +24,7 @@
           outlined
           :validationRules="{ require:true }"
           :value="quiz.name"
-          @input="updateQuiz({name: $event})"
+          @input="setQuiz({name: $event})"
           dense/>
         <v-textarea
           auto-grow
@@ -55,6 +55,7 @@ import InputImage from '@/components/InputImage'
 import QuestionCreation from '@/components/question/QuestionCreation'
 import Camera from 'vue-material-design-icons/Camera'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { ADD_QUESTION, SET_QUIZ } from '@/store/mutations'
 
 export default {
   name: 'QuizCreation',
@@ -74,8 +75,8 @@ export default {
       create: 'create'
     }),
     ...mapMutations('Quiz', {
-      addQuestion: 'addQuestion',
-      updateQuiz: 'updateQuiz'
+      addQuestion: ADD_QUESTION,
+      setQuiz: SET_QUIZ
     }),
 
     createQuiz () {

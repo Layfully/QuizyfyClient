@@ -4,7 +4,7 @@
       <v-row>
         <v-card-title class="title">Odpowiedź {{ choiceIndex + 1 }}</v-card-title>
         <v-spacer></v-spacer>
-        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="deleteChoice({questionIndex, choiceIndex})">
+        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeChoice({questionIndex, choiceIndex})">
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
       </v-row>
@@ -17,10 +17,10 @@
         dense
         :validationRules="{ require:true }"
         :value="choice.text"
-        @input="updateChoice({questionIndex, choiceIndex, text: $event })"/>
+        @input="setChoice({questionIndex, choiceIndex, text: $event })"/>
       <v-switch
         :value="choice.isCorrect"
-        @change="updateChoice({questionIndex, choiceIndex, isCorrect: $event })"
+        @change="setChoice({questionIndex, choiceIndex, isCorrect: $event })"
         :label="switchLabel"></v-switch>
     </v-card-text>
   </v-card>
@@ -29,6 +29,7 @@
 <script>
 import InputField from '@/components/InputField'
 import { mapMutations } from 'vuex'
+import { SET_CHOICE, REMOVE_CHOICE } from '@/store/mutations'
 
 export default {
   name: 'ChoiceCreation',
@@ -55,8 +56,8 @@ export default {
   },
   methods: {
     ...mapMutations('Quiz', {
-      updateChoice: 'updateChoice',
-      deleteChoice: 'deleteChoice'
+      setChoice: SET_CHOICE,
+      removeChoice: REMOVE_CHOICE
     })
   }
 }

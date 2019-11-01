@@ -1,0 +1,9 @@
+export const ADD_QUESTION = 'ADD_QUESTION'
+export const ADD_CHOICE = 'ADD_CHOICE'
+
+export const REMOVE_QUESTION = 'REMOVE_QUESTION'
+export const REMOVE_CHOICE = 'REMOVE_CHOICE'
+
+export const SET_QUIZ = 'UPDATE_QUIZ'
+export const SET_QUESTION = 'UPDATE_QUESTION'
+export const SET_CHOICE = 'UPDATE_CHOICE'

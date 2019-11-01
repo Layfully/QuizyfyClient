@@ -1,4 +1,13 @@
 import QuizService from '@/api-services/quiz.service'
+import {
+  ADD_QUESTION,
+  ADD_CHOICE,
+  REMOVE_QUESTION,
+  REMOVE_CHOICE,
+  SET_QUIZ,
+  SET_QUESTION,
+  SET_CHOICE
+} from '@/store/mutations'
 
 const state = {
   newQuiz: {
@@ -36,25 +45,25 @@ const actions = {
 }
 
 const mutations = {
-  addQuestion (state) {
+  [ADD_QUESTION] (state) {
     state.newQuiz.questions.push({
       text: '',
       choices: []
     })
   },
-  addChoice (state, questionIndex) {
+  [ADD_CHOICE] (state, questionIndex) {
     state.newQuiz.questions[questionIndex].choices.push({
       text: '',
       isCorrect: false
     })
   },
-  deleteQuestion (state, questionIndex) {
+  [REMOVE_QUESTION] (state, questionIndex) {
     state.newQuiz.questions.splice(questionIndex, 1)
   },
-  deleteChoice (state, data) {
+  [REMOVE_CHOICE] (state, data) {
     state.newQuiz.questions[data.questionIndex].choices.splice(data.choiceIndex, 1)
   },
-  updateQuiz (state, data) {
+  [SET_QUIZ] (state, data) {
     if (data.name) {
       state.newQuiz.name = data.name
     }
@@ -65,12 +74,12 @@ const mutations = {
       state.newQuiz.image = data.image
     }
   },
-  updateQuestion (state, data) {
+  [SET_QUESTION] (state, data) {
     if (data.text) {
       state.newQuiz.questions[data.questionIndex].text = data.text
     }
   },
-  updateChoice (state, data) {
+  [SET_CHOICE] (state, data) {
     if (data.isCorrect) {
       state.newQuiz.questions[data.questionIndex].choices[data.choiceIndex].isCorrect = data.isCorrect
     }

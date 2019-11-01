@@ -4,7 +4,7 @@
       <v-row>
         <v-card-title>Pytanie {{ questionIndex + 1 }}</v-card-title>
         <v-spacer></v-spacer>
-        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="deleteQuestion(questionIndex)">
+        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeQuestion(questionIndex)">
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
       </v-row>
@@ -17,7 +17,7 @@
           dense
           :validationRules="{ require:true }"
           :value="question.text"
-          @input="updateQuestion({questionIndex, text: $event })"/>
+          @input="setQuestion({questionIndex, text: $event })"/>
         <ChoiceCreation
           v-for="(choice, choiceIndex) in question.choices"
           :choiceIndex="choiceIndex"
@@ -34,6 +34,7 @@
 import InputField from '@/components/InputField'
 import ChoiceCreation from '@/components/choice/ChoiceCreation'
 import { mapMutations } from 'vuex'
+import { ADD_CHOICE, REMOVE_QUESTION, SET_QUESTION } from '@/store/mutations'
 
 export default {
   name: 'QuestionCreation',
@@ -54,9 +55,9 @@ export default {
   },
   methods: {
     ...mapMutations('Quiz', {
-      updateQuestion: 'updateQuestion',
-      deleteQuestion: 'deleteQuestion',
-      addChoice: 'addChoice'
+      addChoice: ADD_CHOICE,
+      setQuestion: SET_QUESTION,
+      removeQuestion: REMOVE_QUESTION
     })
   }
 }
