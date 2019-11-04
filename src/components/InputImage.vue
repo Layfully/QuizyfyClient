@@ -6,7 +6,22 @@
     :bails="false"
     class="d-block">
       <div @click="launchFilePicker()">
-        <slot></slot>
+        <v-layout justify-center>
+          <v-flex md5>
+            <v-card>
+              <div>
+                <v-img v-ripple v-if="!imageUrl" class="grey lighten-3" style="height:150px;">
+                  <v-layout justify-center align-center style="height:150px; cursor:pointer">
+                    <Camera class="title mt-n1 mr-1"></Camera>
+                    <span>Dodaj zdjęcie</span>
+                  </v-layout>
+                </v-img>
+                <v-img v-ripple v-else :src="imageUrl">
+                </v-img>
+              </div>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </div>
     <input
       type="file"
@@ -37,11 +52,13 @@
 
 <script>
 import { ValidationProvider } from 'vee-validate'
+import Camera from 'vue-material-design-icons/Camera'
 
 export default {
   name: 'InputImage',
   components: {
-    ValidationProvider
+    ValidationProvider,
+    Camera
   },
   props: {
     name: {
@@ -76,7 +93,8 @@ export default {
   },
   data () {
     return {
-      validationErrors: []
+      validationErrors: [],
+      imageUrl: null
     }
   },
   methods: {
@@ -92,11 +110,11 @@ export default {
       if (validation.valid) {
         let imageFile = file[0]
         let formData = new FormData()
-        let imageURL = URL.createObjectURL(imageFile)
+        this.imageUrl = URL.createObjectURL(imageFile)
         formData.append(fieldName, imageFile)
-        this.$emit('input', { formData, imageURL })
+        this.$emit('input', { formData })
       } else {
-        this.$emit('input', {})
+        this.$emit('input')
       }
     }
   }

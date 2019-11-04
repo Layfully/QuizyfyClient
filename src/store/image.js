@@ -10,9 +10,9 @@ const getters = {
 
 const actions = {
   upload ({ commit }, image) {
-    return ImageService.create(image).then((response) => {
-      return response.data
-    })
+    if (image) {
+      return ImageService.create(image)
+    }
   }
 }
 

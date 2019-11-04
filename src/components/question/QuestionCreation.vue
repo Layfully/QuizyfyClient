@@ -2,9 +2,9 @@
   <v-card color="grey lighten-5" class="my-5">
     <v-container>
       <v-row>
-        <v-card-title>Pytanie {{ index + 1 }}</v-card-title>
+        <v-card-title>Pytanie {{ questionIndex + 1 }}</v-card-title>
         <v-spacer></v-spacer>
-        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="emitQuestionDeleteEvent()">
+        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeQuestion(questionIndex)">
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
       </v-row>
@@ -18,23 +18,9 @@
         borderLocation="right"
         :alertColoredBorder=true
         :alertDense=true
-        v-model="image"
-        @input="uploadImage"
+        :value="question.imageUrl"
+        @input="uploadImage($event)"
         class="mb-7">
-        <v-layout justify-center>
-          <v-flex md4>
-            <v-card>
-                <v-img v-ripple v-if="!image.imageURL" class="grey lighten-3" style="height:100px;">
-                  <v-layout justify-center align-center style="height:100px; cursor:pointer">
-                    <Camera class="icon"></Camera>
-                    <span>Dodaj zdjęcie pomocnicze</span>
-                  </v-layout>
-                </v-img>
-                <v-img v-ripple v-else :src="image.imageURL">
-                </v-img>
-            </v-card>
-          </v-flex>
-        </v-layout>
       </InputImage>
       <InputField
         name="Treść pytania"
@@ -42,16 +28,16 @@
         outlined
         dense
         :validationRules="{ require:true }"
-        v-model="question.text"/>
+        :value="question.text"
+        @input="setQuestion({questionIndex, text: $event })"/>
       <ChoiceCreation
-        v-for="(choice, index) in question.choices"
-        :index="index"
-        :key="index"
-        :choice="question.choices[index]"
-        @choiceDelete="deleteChoice"/>
+        v-for="(choice, choiceIndex) in question.choices"
+        :choiceIndex="choiceIndex"
+        :questionIndex="questionIndex"
+        :key="choiceIndex"/>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" depressed @click="addChoice()">Dodaj odpowiedź</v-btn>
+      <v-btn color="primary" depressed @click="addChoice(questionIndex)">Dodaj odpowiedź</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -60,50 +46,40 @@
 import InputField from '@/components/InputField'
 import InputImage from '@/components/InputImage'
 import ChoiceCreation from '@/components/choice/ChoiceCreation'
-import Camera from 'vue-material-design-icons/Camera'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
+import { ADD_CHOICE, REMOVE_QUESTION, SET_QUESTION } from '@/store/mutations'
 
 export default {
   name: 'QuestionCreation',
   components: {
     InputField,
     InputImage,
-    Camera,
     ChoiceCreation
   },
-  data () {
-    return {
-      image: {}
-    }
-  },
-
-  model: { prop: 'question' },
   props: {
-    index: {
+    questionIndex: {
       type: Number,
       required: true
-    },
-    question: {
-      type: Object,
-      required: true
+    }
+  },
+  computed: {
+    question () {
+      return this.$store.getters['Quiz/newQuestion'](this.questionIndex)
     }
   },
   methods: {
     ...mapActions({
       upload: 'Image/upload'
     }),
-    addChoice () {
-      this.question.choices.push({ text: '', isRight: false })
-    },
-    deleteChoice (index) {
-      this.$delete(this.question.choices, index)
-    },
-    emitQuestionDeleteEvent () {
-      this.$emit('questionDelete', this.index)
-    },
-    uploadImage () {
-      this.upload(this.image).then((data) => {
-        this.question.imageId = data.id
+    ...mapMutations('Quiz', {
+      addChoice: ADD_CHOICE,
+      setQuestion: SET_QUESTION,
+      removeQuestion: REMOVE_QUESTION
+    }),
+    uploadImage (image) {
+      this.upload(image).then((response) => {
+        response.data.questionIndex = this.questionIndex
+        this.setQuestion(response.data)
       })
     }
   }

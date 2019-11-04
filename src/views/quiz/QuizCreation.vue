@@ -9,54 +9,38 @@
           alertElevation="1"
           alertType="error"
           borderLocation="right"
-          :alertColoredBorder=true
-          :alertDense=true
-          v-model="quizImage"
-          @input="uploadImage"
+          :alertColoredBorder="true"
+          :alertDense="true"
+          :value="quiz.imageUrl"
+          @input="uploadImage($event)"
           class="my-12">
-          <v-layout justify-center>
-            <v-flex md5>
-              <v-card>
-                <div>
-                  <v-img v-ripple v-if="!quizImage.imageURL" class="grey lighten-3" style="height:150px;">
-                    <v-layout justify-center align-center style="height:150px; cursor:pointer">
-                      <Camera class="icon"></Camera>
-                      <span>Dodaj zdjęcie</span>
-                    </v-layout>
-                  </v-img>
-                  <v-img v-ripple v-else :src="quizImage.imageURL">
-                  </v-img>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
         </InputImage>
         <InputField
           name="Nazwa quizu"
           type="text"
           outlined
           :validationRules="{ require:true }"
-          dense
-          v-model="quiz.name"/>
+          :value="quiz.name"
+          @input="setQuiz({name: $event})"
+          dense/>
         <v-textarea
           auto-grow
           dense
           clearable
           outlined
+          :value="quiz.description"
+          @input="updateQuiz({description: $event})"
           label="Opis quizu"
-          rows="1"
-          v-model="quiz.description"/>
+          rows="1"/>
         <QuestionCreation
           v-for="(question, index) in quiz.questions"
-          :index="index"
-          :key="index"
-          :question="quiz.questions[index]"
-          @questionDelete="deleteQuestion"/>
+          :questionIndex="index"
+          :key="index"/>
       </v-card-text>
       <v-card-actions>
         <v-layout justify-center>
-          <v-btn color="primary" @click="addQuestion()">Dodaj pytanie</v-btn>
-          <v-btn color="success" @click="createQuiz()">Utwórz quiz</v-btn>
+          <v-btn color="primary" @click="addQuestion">Dodaj pytanie</v-btn>
+          <v-btn color="success" @click="createQuiz">Utwórz quiz</v-btn>
         </v-layout>
       </v-card-actions>
     </v-card>
@@ -66,57 +50,40 @@
 import InputField from '@/components/InputField'
 import InputImage from '@/components/InputImage'
 import QuestionCreation from '@/components/question/QuestionCreation'
-import Camera from 'vue-material-design-icons/Camera'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { ADD_QUESTION, SET_QUIZ } from '@/store/mutations'
 
 export default {
   name: 'QuizCreation',
   components: {
     InputField,
     InputImage,
-    QuestionCreation,
-    Camera
+    QuestionCreation
   },
-  data () {
-    return {
-      quiz: {
-        name: '',
-        description: '',
-        questions: [],
-        imageId: -1
-      },
-      quizImage: {}
-    }
+  computed: {
+    ...mapGetters('Quiz', {
+      quiz: 'newQuiz'
+    })
   },
   methods: {
     ...mapActions({
       create: 'Quiz/create',
       upload: 'Image/upload'
     }),
+    ...mapMutations('Quiz', {
+      addQuestion: ADD_QUESTION,
+      setQuiz: SET_QUIZ
+    }),
     createQuiz () {
-      this.create(this.quiz).then(() => {
-        this.quiz = {
-          name: '',
-          description: '',
-          questions: [],
-          imageId: -1
-        }
-        this.quizImage = {}
-      }).catch((error) => {
-        alert(error)
-      })
+      this.create(this.quiz)
+      /**
+       * @todo Implement error handling for createQuiz here.
+       *
+       */
     },
-    addQuestion () {
-      this.quiz.questions.push({ text: '', choices: [], imageId: -1 })
-    },
-    deleteQuestion (index) {
-      this.$delete(this.quiz.questions, index)
-    },
-    uploadImage () {
-      this.upload(this.quizImage).then((data) => {
-        this.quiz.imageId = data.id
-        console.log(data)
-        console.log(this.quiz.imageId)
+    uploadImage (image) {
+      this.upload(image).then((response) => {
+        this.setQuiz(response.data)
       })
     }
   }
