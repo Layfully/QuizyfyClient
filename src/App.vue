@@ -24,19 +24,19 @@ import MobileNavbar from '@/components/MobileNavbar.vue'
 import { between, required, email, dimensions, image } from 'vee-validate/dist/rules'
 import { extend } from 'vee-validate'
 
-var validateImageDimensions = function (value, { width, height }) {
-  return new Promise(function (resolve) {
-    var image = new Image()
-    image.onerror = function () { return resolve(false) }
-    image.onload = function () { return resolve(image.width >= width && image.height >= height) }
+function validateImageDimensions (value, { width, height }) {
+  return new Promise((resolve) => {
+    let image = new Image()
+    image.onerror = () => { return resolve(false) }
+    image.onload = () => { return resolve(image.width >= width && image.height >= height) }
     image.src = URL.createObjectURL(value[0])
   })
 }
 
-var validateImage = function (files) {
-  var regex = /\.(heic|heif|tiff|webp|ico|jpg|svg|jpeg|png|bmp|gif)$/i
+function validateImage (files) {
+  let regex = /\.(heic|heif|tiff|webp|ico|jpg|svg|jpeg|png|bmp|gif)$/i
   if (Array.isArray(files)) {
-    return files.every(function (file) { return regex.test(file.name) })
+    return files.every((file) => { return regex.test(file.name) })
   }
   return regex.test(files.name)
 }
