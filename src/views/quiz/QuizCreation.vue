@@ -8,7 +8,7 @@
           :validationRules="{ dimensions: [256, 256], image:true, require:true }"
           alertElevation="1"
           alertType="error"
-          borderLocation="right"
+          alertBorderLocation="right"
           :alertColoredBorder="true"
           :alertDense="true"
           :value="quiz.imageUrl"

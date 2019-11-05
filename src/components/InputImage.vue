@@ -37,7 +37,7 @@
               :dense="alertDense"
               :colored-border="alertColoredBorder"
               :elevation="alertElevation"
-              :border="borderLocation"
+              :border="alertBorderLocation"
               :type="alertType"
               dismissible
               @input="deleteError(index)"
@@ -84,7 +84,7 @@ export default {
     alertDense: {
       type: Boolean
     },
-    borderLocation: {
+    alertBorderLocation: {
       type: String
     },
     alertColoredBorder: {

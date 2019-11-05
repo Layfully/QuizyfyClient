@@ -15,7 +15,7 @@
         :validationRules="{ dimensions: [512, 512], image:true }"
         alertElevation="1"
         alertType="error"
-        borderLocation="right"
+        alertBorderLocation="right"
         :alertColoredBorder=true
         :alertDense=true
         :value="question.imageUrl"
