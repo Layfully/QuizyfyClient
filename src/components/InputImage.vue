@@ -27,7 +27,7 @@
       type="file"
       ref="image"
       name="image"
-      @change="onFileChange($event.target.name, $event.target.files, validate)"
+      @change="onFileChange($event.target.name, $event.target.files[0], validate)"
       class="d-none">
     <div class="mb-4"></div>
     <transition-group tag="div" name="fade-transition">
@@ -104,11 +104,10 @@ export default {
     deleteError (index) {
       this.$delete(this.validationErrors, index)
     },
-    async onFileChange (fieldName, file, validate) {
-      let validation = await validate(Array.from(file))
+    async onFileChange (fieldName, imageFile, validate) {
+      let validation = await validate([imageFile])
       this.validationErrors = validation.errors
       if (validation.valid) {
-        let imageFile = file[0]
         let formData = new FormData()
         this.imageUrl = URL.createObjectURL(imageFile)
         formData.append(fieldName, imageFile)
