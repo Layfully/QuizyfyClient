@@ -73,13 +73,13 @@ export default {
     }),
     ...mapMutations('Quiz', {
       addChoice: ADD_CHOICE,
-      setQuestion: SET_QUESTION,
+      setQuestionImage: SET_QUESTION,
       removeQuestion: REMOVE_QUESTION
     }),
     uploadImage (image) {
       this.upload(image).then((response) => {
         response.data.questionIndex = this.questionIndex
-        this.setQuestion(response.data)
+        this.setQuestionImage(response.data)
       })
     }
   }

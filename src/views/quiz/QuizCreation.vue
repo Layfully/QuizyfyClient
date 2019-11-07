@@ -72,7 +72,7 @@ export default {
     }),
     ...mapMutations('Quiz', {
       addQuestion: ADD_QUESTION,
-      setQuiz: SET_QUIZ
+      setQuizImage: SET_QUIZ
     }),
     createQuiz () {
       this.create(this.quiz)
@@ -83,7 +83,7 @@ export default {
     },
     uploadImage (image) {
       this.upload(image).then((response) => {
-        this.setQuiz(response.data)
+        this.setQuizImage(response.data)
       })
     }
   }
