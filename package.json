@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "@beyonk/google-fonts-webpack-plugin": "^1.2.3",
@@ -33,8 +34,10 @@
     "@vue/cli-plugin-babel": "^3.12.0",
     "@vue/cli-plugin-eslint": "^3.12.0",
     "@vue/cli-plugin-pwa": "^3.12.0",
+    "@vue/cli-plugin-unit-jest": "^4.0.5",
     "@vue/cli-service": "^3.12.0",
     "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "^10.0.3",
     "bootstrap": "^4.3.1",
     "compression-webpack-plugin": "^3.0.0",
