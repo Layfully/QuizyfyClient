@@ -8,7 +8,7 @@ describe('ImageValidation', () => {
     let files = []
 
     for (const extension of acceptedExtensions) {
-      files.push(new File([''], 'testName.'.concat(extension)))
+      files.push(new File([''], 'testName.' + extension))
     }
 
     expect(validateImages(files)).toBe(true)
@@ -18,7 +18,7 @@ describe('ImageValidation', () => {
     let files = []
 
     for (const extension of notAcceptedExtensions) {
-      files.push(new File([''], 'testName.'.concat(extension)))
+      files.push(new File([''], 'testName.' + extension))
     }
 
     expect(validateImages(files)).toBe(false)
