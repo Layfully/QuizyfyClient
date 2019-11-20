@@ -20,26 +20,9 @@ import Large from '@/components/layouts/Large.vue'
 import FullWidth from '@/components/layouts/FullWidth.vue'
 import Navbar from '@/components/Navbar.vue'
 import MobileNavbar from '@/components/MobileNavbar.vue'
-
 import { between, required, email, dimensions, image } from 'vee-validate/dist/rules'
 import { extend } from 'vee-validate'
-
-function validateImageDimensions (value, { width, height }) {
-  return new Promise((resolve) => {
-    let image = new Image()
-    image.onerror = () => { return resolve(false) }
-    image.onload = () => { return resolve(image.width >= width && image.height >= height) }
-    image.src = URL.createObjectURL(value[0])
-  })
-}
-
-function validateImage (files) {
-  let regex = /\.(heic|heif|tiff|webp|ico|jpg|svg|jpeg|png|bmp|gif)$/i
-  if (Array.isArray(files)) {
-    return files.every((file) => { return regex.test(file.name) })
-  }
-  return regex.test(files.name)
-}
+import { validateImages, validateImageDimensions } from './plugins/validation.js'
 
 extend('passwordMatch', {
   validate: (value, { other }) => value === other,
@@ -71,7 +54,7 @@ extend('email', {
 })
 
 extend('image', {
-  validate: validateImage,
+  validate: validateImages,
   message: 'Ten plik nie jest obrazem',
   params: image.params
 })
