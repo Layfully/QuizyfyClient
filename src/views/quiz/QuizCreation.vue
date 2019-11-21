@@ -83,17 +83,7 @@ export default {
     },
     uploadImage (image) {
       this.upload(image).then((response) => {
-  [SET_QUIZ] (state, data) {
-    if (data.name) {
-      state.newQuiz.name = data.name
-    }
-    if (data.description) {
-      state.newQuiz.description = data.description
-    }
-    if (data.imageUrl) {
-      state.newQuiz.imageUrl = data.imageUrl
-    }
-  },
+        this.setQuiz(response.data)
       })
     }
   }
