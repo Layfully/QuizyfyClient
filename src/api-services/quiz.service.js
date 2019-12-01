@@ -11,18 +11,19 @@ export default {
     return Axios.get(`${RESOURCE_NAME}/${id}`)
   },
 
-  create (quizData, image) {
-    const json = JSON.stringify(quizData)
-    const formData = new FormData()
-    formData.append('json', json)
-    formData.append('image', image)
+  create (quizData) {
+  //  const json = JSON.stringify(quizData)
+  //  const formData = new FormData()
+  //  formData.append('json', json)
+  //  formData.append('image', image)
 
-    return Axios.post(RESOURCE_NAME, formData, {
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    return Axios.post(RESOURCE_NAME, quizData//, {
+      // headers: {
+      //  accept: 'application/json',
+      //  'Content-Type': 'multipart/form-data'
+      // }
+      // }
+    )
   },
 
   update (id, data) {

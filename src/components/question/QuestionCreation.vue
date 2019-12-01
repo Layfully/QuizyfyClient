@@ -10,19 +10,31 @@
       </v-row>
     </v-container>
     <v-card-text>
-        <InputField
-          name="Treść pytania"
-          type="text"
-          outlined
-          dense
-          :validationRules="{ require:true }"
-          :value="question.text"
-          @input="setQuestion({questionIndex, text: $event })"/>
-        <ChoiceCreation
-          v-for="(choice, choiceIndex) in question.choices"
-          :choiceIndex="choiceIndex"
-          :questionIndex="questionIndex"
-          :key="choiceIndex"/>
+      <InputImage
+        name="Obraz pytania"
+        :validationRules="{ dimensions: [512, 512], image:true }"
+        alertElevation="1"
+        alertType="error"
+        alertBorderLocation="right"
+        :alertColoredBorder=true
+        :alertDense=true
+        :value="question.imageUrl"
+        @input="uploadImage($event)"
+        class="mb-7">
+      </InputImage>
+      <InputField
+        name="Treść pytania"
+        type="text"
+        outlined
+        dense
+        :validationRules="{ require:true }"
+        :value="question.text"
+        @input="setQuestion({questionIndex, text: $event })"/>
+      <ChoiceCreation
+        v-for="(choice, choiceIndex) in question.choices"
+        :choiceIndex="choiceIndex"
+        :questionIndex="questionIndex"
+        :key="choiceIndex"/>
     </v-card-text>
     <v-card-actions>
       <v-btn color="primary" depressed @click="addChoice(questionIndex)">Dodaj odpowiedź</v-btn>
@@ -32,14 +44,16 @@
 
 <script>
 import InputField from '@/components/InputField'
+import InputImage from '@/components/InputImage'
 import ChoiceCreation from '@/components/choice/ChoiceCreation'
-import { mapMutations } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { ADD_CHOICE, REMOVE_QUESTION, SET_QUESTION } from '@/store/mutations'
 
 export default {
   name: 'QuestionCreation',
   components: {
     InputField,
+    InputImage,
     ChoiceCreation
   },
   props: {
@@ -54,11 +68,20 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      upload: 'Image/upload'
+    }),
     ...mapMutations('Quiz', {
       addChoice: ADD_CHOICE,
       setQuestion: SET_QUESTION,
       removeQuestion: REMOVE_QUESTION
-    })
+    }),
+    uploadImage (image) {
+      this.upload(image).then((response) => {
+        response.data.questionIndex = this.questionIndex
+        this.setQuestion(response.data)
+      })
+    }
   }
 }
 </script>

@@ -1,4 +1,5 @@
 import QuizService from '@/api-services/quiz.service'
+
 import {
   ADD_QUESTION,
   ADD_CHOICE,
@@ -13,7 +14,7 @@ const state = {
   newQuiz: {
     name: 'Nowy quiz',
     description: 'Opis quizu',
-    image: {},
+    imageUrl: null,
     questions: []
   }
 }
@@ -48,6 +49,7 @@ const mutations = {
   [ADD_QUESTION] (state) {
     state.newQuiz.questions.push({
       text: '',
+      imageUrl: null,
       choices: []
     })
   },
@@ -70,13 +72,16 @@ const mutations = {
     if (data.description) {
       state.newQuiz.description = data.description
     }
-    if (data.image) {
-      state.newQuiz.image = data.image
+    if (data.imageUrl) {
+      state.newQuiz.imageUrl = data.imageUrl
     }
   },
   [SET_QUESTION] (state, data) {
     if (data.text) {
       state.newQuiz.questions[data.questionIndex].text = data.text
+    }
+    if (data.imageUrl) {
+      state.newQuiz.questions[data.questionIndex].imageUrl = data.imageUrl
     }
   },
   [SET_CHOICE] (state, data) {

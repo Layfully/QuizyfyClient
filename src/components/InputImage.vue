@@ -1,74 +1,127 @@
 <template>
-  <div>
-    <v-layout justify-center>
-      <v-flex md5>
-        <v-card>
-          <div @click="launchFilePicker()">
-            <slot name="activator"></slot>
-          </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
-    <input type="file"
-    ref="image"
-    name="image"
-    @change="onFileChange(
-      $event.target.name, $event.target.files)"
-    style="display:none">
-
-    <v-dialog v-model="errorDialog" max-width="300">
-      <v-card>
-        <v-card-text class="subheading">{{errorText}}</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="errorDialog = false" flat>Got it!</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+  <ValidationProvider
+    :name="name"
+    :rules="validationRules"
+    v-slot="{validate}"
+    :bails="false"
+    class="d-block">
+      <div @click="launchFilePicker()">
+        <v-layout justify-center>
+          <v-flex md5>
+            <v-card>
+              <div>
+                <v-img v-ripple v-if="!imageUrl" class="grey lighten-3" style="height:150px;">
+                  <v-layout justify-center align-center style="height:150px; cursor:pointer">
+                    <Camera class="title mt-n1 mr-1"></Camera>
+                    <span>Dodaj zdjęcie</span>
+                  </v-layout>
+                </v-img>
+                <v-img v-ripple v-else :src="imageUrl">
+                </v-img>
+              </div>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </div>
+    <input
+      type="file"
+      ref="image"
+      name="image"
+      @change="onFileChange($event.target.name, $event.target.files[0], validate)"
+      class="d-none">
+    <div class="mb-4"></div>
+    <transition-group tag="div" name="fade-transition">
+      <div v-for="(error, index) in validationErrors" :key="error">
+          <v-fade-transition>
+            <v-alert
+              :dense="alertDense"
+              :colored-border="alertColoredBorder"
+              :elevation="alertElevation"
+              :border="alertBorderLocation"
+              :type="alertType"
+              dismissible
+              @input="deleteError(index)"
+              >
+              {{error}}
+            </v-alert>
+          </v-fade-transition>
+      </div>
+    </transition-group>
+  </ValidationProvider>
 </template>
 
 <script>
+import { ValidationProvider } from 'vee-validate'
+import Camera from 'vue-material-design-icons/Camera'
+
 export default {
   name: 'InputImage',
-  data () {
-    return {
-      errorDialog: null,
-      errorText: '',
-      uploadFieldName: 'image',
-      maxSize: 1024
-    }
+  components: {
+    ValidationProvider,
+    Camera
   },
   props: {
-    value: Object
+    name: {
+      type: String,
+      required: true
+    },
+    icon: {
+      type: String
+    },
+    value: {
+      required: true
+    },
+    validationRules: {
+      type: Object,
+      required: true
+    },
+    alertType: {
+      type: String
+    },
+    alertElevation: {
+      type: String
+    },
+    alertDense: {
+      type: Boolean
+    },
+    alertBorderLocation: {
+      type: String
+    },
+    alertColoredBorder: {
+      type: Boolean
+    }
+  },
+  data () {
+    return {
+      validationErrors: [],
+      imageUrl: null
+    }
   },
   methods: {
     launchFilePicker () {
       this.$refs.image.click()
     },
-    onFileChange (fieldName, file) {
-      const { maxSize } = this
-      let imageFile = file[0]
-      if (file.length > 0) {
-        let size = imageFile.size / maxSize / maxSize
-        if (!imageFile.type.match('image.*')) {
-          // check whether the upload is an image
-          this.errorDialog = true
-          this.errorText = 'Please choose an image file'
-        } else if (size > 1) {
-          // check whether the size is greater than the size limit
-          this.errorDialog = true
-          this.errorText = 'Your file is too big! Please select an image under 1MB'
-        } else {
-          // Append file into FormData and turn file into image URL
-          let formData = new FormData()
-          let imageURL = URL.createObjectURL(imageFile)
-          formData.append(fieldName, imageFile)
-          // Emit the FormData and image URL to the parent component
-          this.$emit('input', { formData, imageURL })
-        }
+    deleteError (index) {
+      this.$delete(this.validationErrors, index)
+    },
+    async onFileChange (fieldName, imageFile, validate) {
+      let validation = await validate([imageFile])
+      this.validationErrors = validation.errors
+      if (validation.valid) {
+        let formData = new FormData()
+        this.imageUrl = URL.createObjectURL(imageFile)
+        formData.append(fieldName, imageFile)
+        this.$emit('input', { formData })
+      } else {
+        this.$emit('input')
       }
     }
   }
 }
 </script>
+
+<style scoped>
+  .fade-transition-enter-active{
+    transition: all .5s ease;
+  }
+</style>
