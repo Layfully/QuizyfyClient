@@ -1,5 +1,5 @@
 <template>
-    <ValidationProvider :name="name" :rules="validationRules" v-slot="{errors, valid}" :bails="false">
+    <ValidationProvider slim :name="name" :rules="validationRules" v-slot="{errors, valid}" :bails="false">
         <v-text-field
         :error-messages="checkIfFocused(errors, isFocused)"
         :error-count="errors.length"

@@ -1,28 +1,29 @@
 <template>
   <ValidationProvider
+    slim
     :name="name"
     :rules="validationRules"
     v-slot="{validate}"
     :bails="false"
     class="d-block">
-      <div @click="launchFilePicker()">
-        <v-layout justify-center>
-          <v-flex md5>
-            <v-card>
-              <div>
-                <v-img v-ripple v-if="!imageUrl" class="grey lighten-3" style="height:150px;">
-                  <v-layout justify-center align-center style="height:150px; cursor:pointer">
-                    <Camera class="title mt-n1 mr-1"></Camera>
-                    <span>Dodaj zdjęcie</span>
-                  </v-layout>
-                </v-img>
-                <v-img v-ripple v-else :src="imageUrl">
-                </v-img>
-              </div>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </div>
+    <div @click="launchFilePicker()">
+      <v-layout justify-center>
+        <v-flex md5>
+          <v-card>
+            <div>
+              <v-img v-ripple v-if="!imageUrl" class="grey lighten-3" style="height:150px;">
+                <v-layout justify-center align-center style="height:150px; cursor:pointer">
+                  <Camera class="title mt-n1 mr-1"></Camera>
+                  <span>Dodaj zdjęcie</span>
+                </v-layout>
+              </v-img>
+              <v-img v-ripple v-else :src="imageUrl">
+              </v-img>
+            </div>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </div>
     <input
       type="file"
       ref="image"

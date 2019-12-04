@@ -33,7 +33,7 @@
               @input="setQuiz({description: $event})"
               label="Opis quizu"
               rows="1"/>
-            <ValidationProvider ref="validator" name="Liczba pytań" rules='minValue:1' v-slot="{errors}">
+            <ValidationProvider slim ref="validator" name="Liczba pytań" rules='minValue:1' v-slot="{errors}">
               <v-fade-transition>
                 <v-alert
                   v-show="errors.length >= 1"

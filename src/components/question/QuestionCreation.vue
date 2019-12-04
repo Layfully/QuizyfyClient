@@ -30,7 +30,7 @@
         :validationRules="{ require:true }"
         :value="question.text"
         @input="setQuestion({questionIndex, text: $event })"/>
-        <ValidationProvider :ref="'question' + questionIndex" :name="'Liczba odpowiedzi do pytania ' + ( questionIndex + 1 )" rules='minValue:1' v-slot="{errors}">
+        <ValidationProvider slim :ref="'question' + questionIndex" :name="'Liczba odpowiedzi do pytania ' + ( questionIndex + 1 )" rules='minValue:1' v-slot="{errors}">
           <v-fade-transition>
             <v-alert
               v-show="errors.length >= 1"

@@ -12,8 +12,8 @@ import {
 
 const state = {
   newQuiz: {
-    name: 'Nowy quiz',
-    description: 'Opis quizu',
+    name: '',
+    description: '',
     imageUrl: null,
     questions: []
   }
