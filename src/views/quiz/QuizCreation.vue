@@ -42,7 +42,6 @@
                   elevation="1"
                   border="right"
                   type="error"
-                  dismissible
                   >
                   {{errors[0]}}
                 </v-alert>
