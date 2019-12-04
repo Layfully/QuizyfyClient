@@ -4,7 +4,7 @@
       <v-row>
         <v-card-title class="title">Odpowiedź {{ choiceIndex + 1 }}</v-card-title>
         <v-spacer></v-spacer>
-        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeChoice({questionIndex, choiceIndex})">
+        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeChoice({questionIndex, choiceIndex}); $emit('deleted')">
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
       </v-row>

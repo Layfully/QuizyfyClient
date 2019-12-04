@@ -4,7 +4,7 @@
       <v-row>
         <v-card-title>Pytanie {{ questionIndex + 1 }}</v-card-title>
         <v-spacer></v-spacer>
-        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeQuestion(questionIndex)">
+        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeQuestion(questionIndex); $emit('deleted')">
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
       </v-row>
@@ -30,14 +30,30 @@
         :validationRules="{ require:true }"
         :value="question.text"
         @input="setQuestion({questionIndex, text: $event })"/>
+        <ValidationProvider :ref="'question' + questionIndex" :name="'Liczba odpowiedzi do pytania ' + ( questionIndex + 1 )" rules='minValue:1' v-slot="{errors}">
+          <v-fade-transition>
+            <v-alert
+              v-show="errors.length >= 1"
+              :dense="true"
+              :colored-border="true"
+              elevation="1"
+              border="right"
+              type="error"
+              dismissible
+              >
+              {{errors[0]}}
+            </v-alert>
+          </v-fade-transition>
+        </ValidationProvider>
       <ChoiceCreation
+        @deleted="validateChoiceCount()"
         v-for="(choice, choiceIndex) in question.choices"
         :choiceIndex="choiceIndex"
         :questionIndex="questionIndex"
         :key="choiceIndex"/>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary" depressed @click="addChoice(questionIndex)">Dodaj odpowiedź</v-btn>
+      <v-btn color="primary" depressed @click="addChoice(questionIndex); validateChoiceCount();">Dodaj odpowiedź</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -46,6 +62,7 @@
 import InputField from '@/components/InputField'
 import InputImage from '@/components/InputImage'
 import ChoiceCreation from '@/components/choice/ChoiceCreation'
+import { ValidationProvider } from 'vee-validate'
 import { mapActions, mapMutations } from 'vuex'
 import { ADD_CHOICE, REMOVE_QUESTION, SET_QUESTION } from '@/store/mutations'
 
@@ -54,6 +71,7 @@ export default {
   components: {
     InputField,
     InputImage,
+    ValidationProvider,
     ChoiceCreation
   },
   props: {
@@ -76,6 +94,10 @@ export default {
       setQuestion: SET_QUESTION,
       removeQuestion: REMOVE_QUESTION
     }),
+    validateChoiceCount () {
+      let ref = 'question' + this.questionIndex
+      this.$refs[ref].validate(this.question.choices.length)
+    },
     uploadImage (image) {
       this.upload(image).then((response) => {
         response.data.questionIndex = this.questionIndex

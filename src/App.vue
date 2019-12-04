@@ -20,7 +20,8 @@ import Large from '@/components/layouts/Large.vue'
 import FullWidth from '@/components/layouts/FullWidth.vue'
 import Navbar from '@/components/Navbar.vue'
 import MobileNavbar from '@/components/MobileNavbar.vue'
-import { between, required, email, dimensions, image } from 'vee-validate/dist/rules'
+// eslint-disable-next-line
+import { between, required, email, dimensions, image, min, min_value } from 'vee-validate/dist/rules'
 import { extend } from 'vee-validate'
 import { validateImages, validateImageDimensions } from './plugins/validation.js'
 
@@ -28,6 +29,12 @@ extend('passwordMatch', {
   validate: (value, { other }) => value === other,
   message: 'Hasła nie są identyczne.',
   params: [{ name: 'other', isTarget: true }]
+})
+
+extend('minValue', {
+  validate: min_value.validate,
+  message: '{_field_} musi być większa lub równa {min}',
+  params: min_value.params
 })
 
 extend('dimensions', {
