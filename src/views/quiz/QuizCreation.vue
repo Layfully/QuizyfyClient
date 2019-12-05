@@ -24,15 +24,18 @@
               :value="quiz.name"
               @input="setQuiz({name: $event})"
               dense/>
-            <v-textarea
-              auto-grow
+            <InputTextArea
+              name="Opis quizu"
+              type="text"
+              outlined
               dense
               clearable
-              outlined
+              auto-grow
+              counter
+              :validationRules="{ require:true }"
               :value="quiz.description"
               @input="setQuiz({description: $event})"
-              label="Opis quizu"
-              rows="1"/>
+              />
             <ValidationProvider slim ref="validator" name="Liczba pytań" rules='minValue:1' v-slot="{errors}">
               <v-fade-transition>
                 <v-alert
@@ -67,6 +70,7 @@
 <script>
 import InputField from '@/components/InputField'
 import InputImage from '@/components/InputImage'
+import InputTextArea from '@/components/InputTextArea'
 import QuestionCreation from '@/components/question/QuestionCreation'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
@@ -79,6 +83,7 @@ export default {
     ValidationProvider,
     InputField,
     InputImage,
+    InputTextArea,
     QuestionCreation
   },
   computed: {

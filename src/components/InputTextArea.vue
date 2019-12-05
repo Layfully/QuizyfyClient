@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider slim :name="name" :rules="validationRules" v-slot="{errors, valid}" :bails="false">
-    <v-text-field
+    <v-textarea
     :error-messages="checkIfFocused(errors, isFocused)"
     :error-count="errors.length"
     :success="valid"
@@ -13,17 +13,21 @@
     :value="value"
     :outlined="outlined"
     :dense="dense"
+    :clearable="clearable"
+    :auto-grow="autoGrow"
+    :rows="rows"
+    :counter="counter"
     @focus="isFocused = true"
     @blur="isFocused = false"
     @click:append-outer="$emit('click-append')"
-    @input="$emit('input', $event)"></v-text-field>
+    @input="$emit('input', $event)"></v-textarea>
   </ValidationProvider>
 </template>
 <script>
 import { ValidationProvider } from 'vee-validate'
 
 export default {
-  name: 'InputField',
+  name: 'InputTextArea',
   components: {
     ValidationProvider
   },
@@ -37,6 +41,9 @@ export default {
       required: true
     },
     icon: {
+      type: String
+    },
+    rows: {
       type: String
     },
     value: {
@@ -53,6 +60,15 @@ export default {
       type: Boolean
     },
     dense: {
+      type: Boolean
+    },
+    clearable: {
+      type: Boolean
+    },
+    autoGrow: {
+      type: Boolean
+    },
+    counter: {
       type: Boolean
     }
   },
