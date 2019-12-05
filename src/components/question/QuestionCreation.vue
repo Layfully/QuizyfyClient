@@ -12,7 +12,7 @@
     <v-card-text>
       <InputImage
         name="Obraz pytania"
-        :validationRules="{ dimensions: [512, 512], image:true }"
+        :validationRules="{ dimensions: [512, 512] }"
         alertElevation="1"
         alertType="error"
         alertBorderLocation="right"
@@ -39,7 +39,6 @@
               elevation="1"
               border="right"
               type="error"
-              dismissible
               >
               {{errors[0]}}
             </v-alert>
