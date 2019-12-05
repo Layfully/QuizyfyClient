@@ -1,9 +1,9 @@
 export const validateImageDimensions = (value, { width, height }) => {
   return new Promise((resolve) => {
     let image = new Image()
-    image.onerror = () => { return resolve(false) }
+    image.onerror = () => { return resolve(value.length === 0) }
     image.onload = () => { return resolve(image.width >= width && image.height >= height) }
-    image.src = URL.createObjectURL(value[0])
+    image.src = value.length > 0 ? URL.createObjectURL(value[0]) : null
   })
 }
 
