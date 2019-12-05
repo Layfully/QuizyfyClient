@@ -11,7 +11,7 @@
     </v-container>
     <v-card-text>
       <InputImage
-        name="Obraz pytania"
+        :name="'Obraz pytania' + questionIndex"
         :validationRules="{ dimensions: [512, 512] }"
         alertElevation="1"
         alertType="error"

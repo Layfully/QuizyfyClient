@@ -2,6 +2,7 @@
   <ValidationProvider
     slim
     :name="name"
+    :ref="name"
     :rules="validationRules"
     v-slot="{validate}"
     :bails="false"
@@ -117,6 +118,9 @@ export default {
         this.$emit('input')
       }
     }
+  },
+  mounted () {
+    this.$refs[this.$props.name].validate([])
   }
 }
 </script>
