@@ -115,6 +115,7 @@ export default {
         formData.append(fieldName, imageFile)
         this.$emit('input', { formData })
       } else {
+        this.imageUrl = null
         this.$emit('input')
       }
     }
