@@ -12,8 +12,8 @@ import {
 
 const state = {
   newQuiz: {
-    name: 'Nowy quiz',
-    description: 'Opis quizu',
+    name: '',
+    description: '',
     imageUrl: null,
     questions: []
   }
@@ -66,29 +66,29 @@ const mutations = {
     state.newQuiz.questions[data.questionIndex].choices.splice(data.choiceIndex, 1)
   },
   [SET_QUIZ] (state, data) {
-    if (data.name) {
+    if ('name' in data) {
       state.newQuiz.name = data.name
     }
-    if (data.description) {
+    if ('description' in data) {
       state.newQuiz.description = data.description
     }
-    if (data.imageUrl) {
+    if ('imageUrl' in data) {
       state.newQuiz.imageUrl = data.imageUrl
     }
   },
   [SET_QUESTION] (state, data) {
-    if (data.text) {
+    if ('text' in data) {
       state.newQuiz.questions[data.questionIndex].text = data.text
     }
-    if (data.imageUrl) {
+    if ('imageUrl' in data) {
       state.newQuiz.questions[data.questionIndex].imageUrl = data.imageUrl
     }
   },
   [SET_CHOICE] (state, data) {
-    if (data.isCorrect) {
+    if ('isCorrect' in data) {
       state.newQuiz.questions[data.questionIndex].choices[data.choiceIndex].isCorrect = data.isCorrect
     }
-    if (data.text) {
+    if ('text' in data) {
       state.newQuiz.questions[data.questionIndex].choices[data.choiceIndex].text = data.text
     }
   }
