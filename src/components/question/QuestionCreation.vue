@@ -1,15 +1,15 @@
 <template>
-  <v-card color="grey lighten-5" class="my-5">
-    <v-container>
-      <v-row>
-        <v-card-title>Pytanie {{ questionIndex + 1 }}</v-card-title>
+  <v-expansion-panel color="grey lighten-5">
+    <v-expansion-panel-header expand-icon="mdi-menu-down">
+      <v-row align="center">
+        <p class="title ma-0">Pytanie {{ questionIndex + 1 }}</p>
         <v-spacer></v-spacer>
-        <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeQuestion(questionIndex); $emit('deleted')">
+        <v-btn class="mr-6" fab dark outlined small color="error" @click="removeQuestion(questionIndex); $emit('deleted')">
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
       </v-row>
-    </v-container>
-    <v-card-text>
+    </v-expansion-panel-header>
+    <v-expansion-panel-content>
       <InputImage
         :name="'Obraz pytania' + questionIndex"
         :validationRules="{ dimensions: [512, 512] }"
@@ -50,11 +50,9 @@
         :choiceIndex="choiceIndex"
         :questionIndex="questionIndex"
         :key="choiceIndex"/>
-    </v-card-text>
-    <v-card-actions>
       <v-btn color="primary" depressed @click="addChoice(questionIndex); validateChoiceCount();">Dodaj odpowiedź</v-btn>
-    </v-card-actions>
-  </v-card>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
 </template>
 
 <script>

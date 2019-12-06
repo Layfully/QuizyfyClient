@@ -50,12 +50,14 @@
                 </v-alert>
               </v-fade-transition>
             </ValidationProvider>
-            <QuestionCreation
-              @deleted="validateQuestionCount()"
-              @changeChoiceCount="validateObserver()"
-              v-for="(question, index) in quiz.questions"
-              :questionIndex="index"
-              :key="index"/>
+            <v-expansion-panels accordion multiple>
+              <QuestionCreation
+                @deleted="validateQuestionCount()"
+                @changeChoiceCount="validateObserver()"
+                v-for="(question, index) in quiz.questions"
+                :questionIndex="index"
+                :key="index"/>
+            </v-expansion-panels>
           </v-form>
         </v-card-text>
         <v-card-actions>
