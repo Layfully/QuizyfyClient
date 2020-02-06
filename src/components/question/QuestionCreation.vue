@@ -1,6 +1,6 @@
 <template>
-  <v-expansion-panel color="grey lighten-5">
-    <v-expansion-panel-header expand-icon="mdi-menu-down">
+  <v-card>
+    <v-card-title>
       <v-row align="center">
         <p class="title ma-0">Pytanie {{ questionIndex + 1 }}</p>
         <v-spacer></v-spacer>
@@ -8,8 +8,8 @@
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
       </v-row>
-    </v-expansion-panel-header>
-    <v-expansion-panel-content>
+    </v-card-title>
+    <v-card-text>
       <InputImage
         :name="'Obraz pytania' + questionIndex"
         :validationRules="{ dimensions: [512, 512] }"
@@ -44,15 +44,15 @@
             </v-alert>
           </v-fade-transition>
         </ValidationProvider>
-      <ChoiceCreation
-        @deleted="validateChoiceCount()"
-        v-for="(choice, choiceIndex) in question.choices"
-        :choiceIndex="choiceIndex"
-        :questionIndex="questionIndex"
-        :key="choiceIndex"/>
-      <v-btn color="primary" depressed @click="addChoice(questionIndex); validateChoiceCount();">Dodaj odpowiedź</v-btn>
-    </v-expansion-panel-content>
-  </v-expansion-panel>
+        <ChoiceCreation
+          @deleted="validateChoiceCount()"
+          v-for="(choice, choiceIndex) in question.choices"
+          :choiceIndex="choiceIndex"
+          :questionIndex="questionIndex"
+          :key="choiceIndex"/>
+      <v-btn color="primary" @click="addChoice(questionIndex); validateChoiceCount();">Dodaj odpowiedź</v-btn>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

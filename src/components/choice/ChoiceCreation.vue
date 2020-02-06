@@ -2,14 +2,14 @@
   <v-card class="my-2">
     <v-container>
       <v-row>
-        <v-card-title class="title">Odpowiedź {{ choiceIndex + 1 }}</v-card-title>
+        <v-card-title class="title py-0">Odpowiedź {{ choiceIndex + 1 }}</v-card-title>
         <v-spacer></v-spacer>
         <v-btn class="ma-4 mb-2" fab dark outlined small color="error" @click="removeChoice({questionIndex, choiceIndex}); $emit('deleted')">
           <v-icon dark>mdi-delete</v-icon>
         </v-btn>
       </v-row>
     </v-container>
-    <v-card-text>
+    <v-card-text class="py-0">
       <InputField
         :name="'Treść odpowiedzi ' + (choiceIndex + 1)"
         type="text"
@@ -19,6 +19,8 @@
         :value="choice.text"
         @input="setChoice({questionIndex, choiceIndex, text: $event })"/>
       <v-switch
+        class="my-0"
+        dense
         :value="choice.isCorrect"
         @change="setChoice({questionIndex, choiceIndex, isCorrect: $event })"
         :label="switchLabel"></v-switch>
