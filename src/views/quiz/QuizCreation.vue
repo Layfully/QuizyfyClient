@@ -97,7 +97,7 @@
                 </v-btn>
               </v-row>
               <v-row fluid class="justify-center mt-3" style="width:100%">
-                <v-btn @click="addQuestion(); validateQuestionCount();" color="primary mx-2" style="width:20%">Dodaj pytanie</v-btn>
+                <v-btn @click="addQuestion(); validateQuestionCount(); nextQuestion();" color="primary mx-2" style="width:20%">Dodaj pytanie</v-btn>
                 <v-btn @click="createQuiz" :disabled="invalid || !validated" color="success mx-2" style="width:20%">Utwórz quiz</v-btn>
               </v-row>
             </v-card-actions>
