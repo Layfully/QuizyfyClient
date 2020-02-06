@@ -4,6 +4,7 @@ const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin')
 const productionGzipExtensions = ['js', 'css']
 module.exports = {
   runtimeCompiler: true,
+
   configureWebpack: {
     plugins: [
       new CompressionWebpackPlugin({
@@ -19,5 +20,11 @@ module.exports = {
         ]
       })
     ]
-  }
+  },
+
+  pwa: {
+    name: 'Quizyfy'
+  },
+
+  assetsDir: './'
 }
