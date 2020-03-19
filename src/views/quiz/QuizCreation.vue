@@ -114,8 +114,8 @@ import InputImage from '@/components/InputImage'
 import InputTextArea from '@/components/InputTextArea'
 import QuestionCreation from '@/components/question/QuestionCreation'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import { mapActions, mapMutations, mapGetters } from 'vuex'
-import { ADD_QUESTION, SET_QUIZ } from '@/store/mutations'
+import { mapActions, mapMutations, mapState } from 'vuex'
+import { ADD_QUESTION, SET_NEW_QUIZ } from '@/store/mutations'
 
 export default {
   name: 'QuizCreation',
@@ -134,9 +134,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('Quiz', {
+    ...mapState('Quiz', {
       quiz: 'newQuiz'
     })
+  },
+  mounted () {
+    this.validateQuestionCount()
   },
   methods: {
     ...mapActions({
@@ -145,7 +148,7 @@ export default {
     }),
     ...mapMutations('Quiz', {
       addQuestion: ADD_QUESTION,
-      setQuiz: SET_QUIZ
+      setQuiz: SET_NEW_QUIZ
     }),
     validateQuestionCount () {
       this.$refs.validator.validate(this.quiz.questions.length)
