@@ -97,8 +97,8 @@
                 </v-btn>
               </v-row>
               <v-row fluid class="justify-center mt-3" style="width:100%">
-                <v-btn @click="addQuestion(); validateQuestionCount(); nextQuestion();" color="primary mx-2" style="width:20%">Dodaj pytanie</v-btn>
-                <v-btn @click="createQuiz" :disabled="invalid || !validated" color="success mx-2" style="width:20%">Utwórz quiz</v-btn>
+                <v-btn @click="addQuestion(); validateQuestionCount(); lastQuestion();" color="primary mx-2" style="width:20%">Dodaj pytanie</v-btn>
+                <v-btn @click="createQuiz" :disabled="invalid || !validated" color="success" style="width:20%">Utwórz quiz</v-btn>
               </v-row>
             </v-card-actions>
           </v-card>
@@ -114,8 +114,8 @@ import InputImage from '@/components/InputImage'
 import InputTextArea from '@/components/InputTextArea'
 import QuestionCreation from '@/components/question/QuestionCreation'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import { mapActions, mapMutations, mapGetters } from 'vuex'
-import { ADD_QUESTION, SET_QUIZ } from '@/store/mutations'
+import { mapActions, mapMutations, mapState } from 'vuex'
+import { ADD_QUESTION, SET_NEW_QUIZ } from '@/store/mutations'
 
 export default {
   name: 'QuizCreation',
@@ -134,9 +134,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('Quiz', {
+    ...mapState('Quiz', {
       quiz: 'newQuiz'
     })
+  },
+  mounted () {
+    this.validateQuestionCount()
   },
   methods: {
     ...mapActions({
@@ -145,7 +148,7 @@ export default {
     }),
     ...mapMutations('Quiz', {
       addQuestion: ADD_QUESTION,
-      setQuiz: SET_QUIZ
+      setQuiz: SET_NEW_QUIZ
     }),
     validateQuestionCount () {
       this.$refs.validator.validate(this.quiz.questions.length)
@@ -158,6 +161,9 @@ export default {
     },
     previousQuestion () {
       this.questionWindowTracker = this.questionWindowTracker - 1 < 0 ? this.quiz.questions.length - 1 : this.questionWindowTracker - 1
+    },
+    lastQuestion () {
+      this.questionWindowTracker = this.quiz.questions.length - 1
     },
     createQuiz () {
       this.create(this.quiz)

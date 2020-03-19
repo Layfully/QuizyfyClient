@@ -31,9 +31,12 @@ import QuizService from '@/api-services/quiz.service'
 
 export default {
   name: 'Quiz',
-  props: [
-    'title'
-  ],
+  props: {
+    quizId: {
+      type: Number,
+      required: true
+    }
+  },
   data () {
     return {
       quizzes: []
