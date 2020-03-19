@@ -32,7 +32,7 @@ const router = new Router({
     {
       path: '/quiz/create',
       name: 'QuizCreate',
-      component: QuizCreation,
+      component: () => import('@/views/quiz/QuizCreation'),
       meta: { layout: 'Large' }
     },
     {
@@ -43,30 +43,30 @@ const router = new Router({
     {
       path: '/login',
       name: 'LoginForm',
-      component: LoginForm,
+      component: () => import('@/views/user/LoginForm'),
       meta: { transition: 'fade-in-down' }
     },
     {
       path: '/register',
       name: 'RegistrationForm',
-      component: RegistrationForm,
+      component: () => import('@/views/user/RegistrationForm'),
       meta: { transition: 'fade-in-up' }
     },
     {
       path: '/confirm/:id/:token',
       name: 'EmailConfirmation',
-      component: EmailConfirmation
+      component: () => import('@/views/user/EmailConfirmation')
     },
     {
       path: '/passwordRecovery',
       name: 'PasswordRecovery',
-      component: PasswordRecovery,
+      component: () => import('@/views/user/PasswordRecovery'),
       meta: { transition: 'fade-in-up' }
     },
     {
       path: '/resetPassword/:id/:token',
       name: 'PasswordReset',
-      component: PasswordReset
+      component: () => import('@/views/user/PasswordReset')
     },
     {
       path: '/profile',
@@ -76,7 +76,7 @@ const router = new Router({
     {
       path: '*',
       name: 'NotFound',
-      component: NotFound
+      component: () => import('@/views/NotFound')
     }
   ]
 })
