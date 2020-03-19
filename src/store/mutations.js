@@ -9,6 +9,8 @@ export const SET_NEW_QUIZ = 'UPDATE_QUIZ'
 export const SET_QUESTION = 'UPDATE_QUESTION'
 export const SET_CHOICE = 'UPDATE_CHOICE'
 
+export const SET_QUIZ_LIST = 'SET_QUIZ_LIST'
+
 /** USER */
 export const SET_USER = 'SET_USER'
 export const CLEAR_USER = 'CLEAR_USER'

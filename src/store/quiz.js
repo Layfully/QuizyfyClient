@@ -1,13 +1,14 @@
 import QuizService from '@/api-services/quiz.service'
 
 import {
+  // when releasing check which one are used and delete
   ADD_QUESTION,
   ADD_CHOICE,
   REMOVE_QUESTION,
   REMOVE_CHOICE,
-  SET_QUIZ,
+  SET_NEW_QUIZ,
   SET_QUESTION,
-  SET_CHOICE
+  SET_QUIZ_LIST
 } from '@/store/mutations'
 
 const state = {
@@ -16,6 +17,13 @@ const state = {
     description: '',
     imageUrl: null,
     questions: []
+  }
+  quizList: {
+    items: {},
+    paging: {
+      pageSize: 4,
+      pageNumber: 1
+    }
   }
 }
 
@@ -38,9 +46,9 @@ const getters = {
 const actions = {
   create ({ commit }, quizData) {
     return QuizService.create(quizData).then((data) => {
-    /**
-    * @todo inform user about result of this operation and set state if needed.
-    */
+  getPage ({ commit, state }, pageNumber) {
+    return QuizService.getAll(pageNumber, state.quizList.paging.pageSize).then((response) => {
+      commit(SET_QUIZ_LIST, response.data)
     })
   }
 }
@@ -65,7 +73,7 @@ const mutations = {
   [REMOVE_CHOICE] (state, data) {
     state.newQuiz.questions[data.questionIndex].choices.splice(data.choiceIndex, 1)
   },
-  [SET_QUIZ] (state, data) {
+  [SET_NEW_QUIZ] (state, data) {
     if ('name' in data) {
       state.newQuiz.name = data.name
     }
@@ -91,6 +99,8 @@ const mutations = {
     if ('text' in data) {
       state.newQuiz.questions[data.questionIndex].choices[data.choiceIndex].text = data.text
     }
+  [SET_QUIZ_LIST] (state, data) {
+    state.quizList = data
   }
 }
 
