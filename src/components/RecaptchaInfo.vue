@@ -1,5 +1,5 @@
 <template>
-  <v-alert dense type="info" class="ma-0 mt-2 py-3">
+  <v-alert tile dense type="info" class="ma-0 mt-2 py-3">
     <p class="caption ma-0">This site is protected by invisible reCAPTCHA.
         <br/>
         Google
