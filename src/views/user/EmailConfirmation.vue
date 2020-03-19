@@ -3,6 +3,9 @@
     <v-toolbar color="primary" dark flat>
       <v-toolbar-title>Potwierdź email!</v-toolbar-title>
     </v-toolbar>
+    <v-card-text>
+      <RecaptchaInfo/>
+    </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn block color="primary" @click="confirmUserEmail()">Potwierdź</v-btn>

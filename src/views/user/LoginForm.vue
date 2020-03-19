@@ -21,6 +21,7 @@
             @click-append="displayPassword = !displayPassword"
             v-model="credentials.password"/>
         </v-form>
+        <RecaptchaInfo/>
       </v-card-text>
       <v-card-actions>
         <v-btn :disabled="!validated || invalid" block color="primary" @click="userLogin(credentials)">Zaloguj się</v-btn>

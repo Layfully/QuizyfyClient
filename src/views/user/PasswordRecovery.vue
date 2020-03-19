@@ -13,6 +13,7 @@
               :validationRules="{ require:true, email:true }"
               v-model="user.email"/>
         </v-form>
+        <RecaptchaInfo/>
       </v-card-text>
       <v-card-actions>
         <v-btn block :disabled="!validated || invalid" color="primary" @click="sendEmailWithLinkReset(user.email)">Wyślij mail z linkiem do resetu hasła</v-btn>

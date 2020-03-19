@@ -13,7 +13,7 @@ import 'vue-material-design-icons/styles.css'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
 import 'nprogress/nprogress.css'
 
-Vue.use(VueReCaptcha, { siteKey: process.env.VUE_APP_CAPTCHA_SITE_KEY })
+Vue.use(VueReCaptcha, { siteKey: process.env.VUE_APP_CAPTCHA_SITE_KEY, loaderOptions: { autoHideBadge: true } })
 Vue.use(VuePageTransition)
 
 Vue.config.productionTip = process.env.NODE_ENV === 'development'
@@ -21,6 +21,7 @@ Vue.config.productionTip = process.env.NODE_ENV === 'development'
 Vue.prototype.$http = Axios
 Vue.prototype.$eventBus = new Vue() // todo: remove
 
+Vue.component('RecaptchaInfo', () => import('@/components/RecaptchaInfo'))
 
 /* eslint-disable no-new */
 new Vue({

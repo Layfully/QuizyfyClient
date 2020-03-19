@@ -103,6 +103,7 @@
             </v-card-actions>
           </v-card>
         </v-stepper-content>
+        <RecaptchaInfo/>
       </v-stepper-items>
     </v-stepper>
   </ValidationObserver>
