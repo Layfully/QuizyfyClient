@@ -1,11 +1,12 @@
 <template>
-    <v-container fluid fill-height class="pa-0">
-        <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md5>
-                <slot/>
-            </v-flex>
-        </v-layout>
-    </v-container>
+  <v-container fill-height>
+    <v-switch v-model="$vuetify.theme.dark"></v-switch> <!-- REMEMBER TO MOVE THIS SWITCH SOMEWHERE ELSE THIS IS FOR DEV PURPOSE-->
+    <v-row justify="center" dense>
+      <v-col :cols="12" :sm="8" :md="6">
+        <slot/>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
