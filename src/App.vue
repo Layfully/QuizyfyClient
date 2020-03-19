@@ -10,6 +10,7 @@
       </component>
       </vue-page-transition>
     </v-content>
+    <Notification/>
     <MobileNavbar v-if="$vuetify.breakpoint.smAndDown" />
   </v-app>
 </template>
@@ -20,6 +21,8 @@ import Large from '@/components/layouts/Large.vue'
 import FullWidth from '@/components/layouts/FullWidth.vue'
 import Navbar from '@/components/Navbar.vue'
 import MobileNavbar from '@/components/MobileNavbar.vue'
+import Notification from '@/components/Notification.vue'
+
 // eslint-disable-next-line
 import { between, required, email, dimensions, image, min, min_value } from 'vee-validate/dist/rules'
 import { extend } from 'vee-validate'
