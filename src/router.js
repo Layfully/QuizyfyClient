@@ -1,12 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
-import NotFound from '@/views/NotFound'
 import Quiz from '@/views/quiz/Quiz'
 import QuizList from '@/views/quiz/QuizList'
-import QuizCreation from '@/views/quiz/QuizCreation'
-import LoginForm from '@/views/user/LoginForm'
-import RegistrationForm from '@/views/user/RegistrationForm'
 import UserProfile from '@/views/user/UserProfile'
 import NProgress from 'nprogress'
 
@@ -23,11 +19,6 @@ const router = new Router({
       name: 'Home',
       component: Home,
       meta: { transition: 'zoom', layout: 'FullWidth' }
-    },
-    {
-      path: '/quiz/list/:pageNumber',
-      name: 'QuizList',
-      component: QuizList
     },
     {
       path: '/quiz/create',
