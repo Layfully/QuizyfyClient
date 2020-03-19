@@ -11,25 +11,25 @@ const state = {
     {
       title: 'Rejestracja',
       path: { name: 'RegistrationForm' },
-      icon: 'Face',
+      icon: 'mdi-face',
       requireAuth: false
     },
     {
       title: 'Logowanie',
       path: { name: 'LoginForm' },
-      icon: 'LockOpen',
+      icon: 'mdi-lock-open',
       requireAuth: false
     },
     {
       title: 'Wyloguj się',
       path: { name: 'Home' },
-      icon: 'Logout',
+      icon: 'mdi-logout',
       requireAuth: true
     },
     {
       title: 'Katalog Quizów',
       path: { name: 'QuizList', params: { pageNumber: 1 } },
-      icon: 'BookMultiple',
+      icon: 'mdi-book-multiple',
       requireAuth: false
     }
   ]
