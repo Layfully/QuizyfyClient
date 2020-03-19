@@ -21,6 +21,7 @@ Vue.config.productionTip = process.env.NODE_ENV === 'development'
 Vue.prototype.$http = Axios
 Vue.prototype.$eventBus = new Vue() // todo: remove
 
+Vue.component('RecaptchaInfo', () => import('@/components/RecaptchaInfo'))
 
 /* eslint-disable no-new */
 new Vue({

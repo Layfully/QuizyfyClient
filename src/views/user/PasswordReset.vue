@@ -26,6 +26,7 @@
             </v-col>
           </v-row>
         </v-form>
+        <RecaptchaInfo/>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
