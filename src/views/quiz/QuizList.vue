@@ -1,24 +1,35 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
-        <v-card hover v-for="quiz  in quizData.items" :key="quiz.id">
-          <v-img :src="quiz.imageUrl" :aspect-ratio="11/9">
+<div>
+  <v-row justify="center" class="mx-auto" v-for="i in rowCount()" :key="i">
+    <v-col v-for="quiz in itemCountInRow(i)" :key="quiz.id">
+      <v-card color="grey lighten-4" style="border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:10px">
+        <v-card flat :to="{name: 'Quiz', params: {'quizId': quiz.id}}">
+          <v-img :src="quiz.imageUrl" :aspect-ratio="16/9">
           </v-img>
-          <v-card-title>
-            {{ quiz.name }}
-          </v-card-title>
-          <v-card-text>
+        </v-card>
+        <v-card-title class="justify-center">
+          {{ quiz.name }}
+        </v-card-title>
+        <div class="d-flex flex-nowrap align-end">
+          <v-card-text class="py-0">
+            <p>{{ quiz.description }}</p>
+            <p>Liczba pytań: {{quiz.questions.length}}</p>
+            <p>Dodano: <time :datetime="quiz.dateAdded">{{ quiz.dateAdded.split('T')[0] }}</time></p>
           </v-card-text>
           <v-card-actions>
+            <div class="d-flex align-center">
+              <p class="ma-0" style="white-space:nowrap">( 100000000000 )</p>
+              <v-btn text large icon rounded><v-icon color="grey darken-1">mdi-thumb-up</v-icon></v-btn>
+            </div>
           </v-card-actions>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+        </div>
+      </v-card>
+    </v-col>
+  </v-row>
+</div>
 </template>
 <script>
-import QuizService from '@/api-services/quiz.service'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'QuizList',
@@ -32,24 +43,32 @@ export default {
   },
   data () {
     return {
-      quizData: {
-        paging: {
-          pageSize: 2,
-          pageNumber: 1
-        }
-      }
+      itemsPerRow: 2
     }
   },
-  created () {
-    QuizService
-      .getAll(this.$route.params.pageNumber, this.quizData.paging.pageSize)
-      .then((response) => {
-        this.quizData = response.data
-      })
+  computed: mapState('Quiz', [
+    'quizList'
+  ]),
+  mounted () {
+    this.getPage(this.pageNumber)
   },
   methods: {
+    ...mapActions({
+      getPage: 'Quiz/getPage'
+    }),
+    // Think this is left for pagination : TODO
     linkGen (pageNum) {
       return this.$route.path.substring(0, this.$route.path.lastIndexOf('/')).concat(`/${pageNum}`)
+    },
+    itemCountInRow (index) {
+      return this.quizList.items.slice((index - 1) * this.itemsPerRow, index * this.itemsPerRow)
+    },
+    rowCount () {
+      // THERE IS ERROR WITH THIS LINE WHEN QUIZ DATA IS NOT PRESENT YET
+      return Math.ceil(this.quizList.items.length / this.itemsPerRow)
+    },
+    time (quiz) {
+      return new Date(quiz.dateAdded)
     }
   }
 }
