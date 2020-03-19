@@ -38,12 +38,14 @@ const router = new Router({
     {
       path: '/quiz/:quizId',
       name: 'Quiz',
+      props: true,
       component: Quiz,
       meta: { layout: 'Large' }
     },
     {
       path: '/quiz/list/:pageNumber',
       name: 'QuizList',
+      props: true,
       component: QuizList,
       meta: { layout: 'FullWidth' }
     },
@@ -62,6 +64,7 @@ const router = new Router({
     {
       path: '/confirm/:id/:token',
       name: 'EmailConfirmation',
+      props: true,
       component: () => import('@/views/user/EmailConfirmation')
     },
     {
@@ -73,6 +76,7 @@ const router = new Router({
     {
       path: '/resetPassword/:id/:token',
       name: 'PasswordReset',
+      props: true,
       component: () => import('@/views/user/PasswordReset')
     },
     {

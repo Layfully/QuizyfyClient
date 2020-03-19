@@ -30,7 +30,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn block :disabled="!validated || invalid" color="primary" @click="resetPassword(user)">Zmień hasło</v-btn>
+        <v-btn block :disabled="!validated || invalid" color="primary" @click="changePassword(id, user)">Zmień hasło</v-btn>
       </v-card-actions>
     </v-card>
   </ValidationObserver>
@@ -49,6 +49,16 @@ export default {
     InputField,
     PasswordField
   },
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+    token: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       user: {
@@ -60,17 +70,12 @@ export default {
     }
   },
   mounted () {
-    this.user.token = this.$route.params.token
+    this.user.token = this.token
   },
   methods: {
     ...mapActions({
       changePassword: 'User/changePassword'
-    }),
-    resetPassword (user) {
-      this.changePassword(this.$route.params.id, user)
-        .then(() => this.$router.push({ path: '/' }))
-        .catch((error) => console.log(error))
-    }
+    })
   }
 }
 </script>

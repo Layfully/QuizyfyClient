@@ -24,6 +24,12 @@ export default {
   name: 'QuizList',
   components: {
   },
+  props: {
+    pageNumber: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       quizData: {

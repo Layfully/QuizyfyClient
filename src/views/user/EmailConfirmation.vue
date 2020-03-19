@@ -8,7 +8,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn block color="primary" @click="confirmUserEmail()">Potwierdź</v-btn>
+      <v-btn block color="primary" @click="this.confirmEmail(this.$props)">Potwierdź</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -17,15 +17,20 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'EmaillConfirmation',
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+    verificationToken: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     ...mapActions({
       confirmEmail: 'User/confirmEmail'
-    }),
-
-    confirmUserEmail () {
-      this.confirmEmail({ 'id': this.$route.params.id, 'verificationToken': this.$route.params.token })
-        .catch(error => console.log(error))
-    }
+    })
   }
 }
 </script>
