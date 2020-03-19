@@ -7,14 +7,14 @@ const onSuccess = (response) => {
 }
 
 const onError = (error) => {
-  console.log(error)
-  switch (error.response.status) {
-    case 401:
+  if (error.response !== undefined) {
+    if (error.response.status === 401) {
       const originalRequest = error.config
       if (!originalRequest._retry && error.response.data === 'Token Expired') {
         originalRequest._retry = true
         const refreshToken = store.getters['authentication/refreshtoken']
         const jwtToken = store.getters['authentication/accesstoken']
+
         return UserService.refresh({ jwtToken, refreshToken }).then((response) => {
           store.commit('authentication/setAccessToken', response.token.access)
           return axios(originalRequest)
@@ -23,9 +23,7 @@ const onError = (error) => {
           return Promise.reject(error)
         })
       }
-      break
-    default:
-      break
+    }
   }
   return Promise.reject(error)
 }
