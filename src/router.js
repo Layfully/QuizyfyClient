@@ -38,6 +38,9 @@ const router = new Router({
     {
       path: '/quiz/:quizId',
       name: 'Quiz',
+      component: Quiz,
+      meta: { layout: 'Large' }
+    },
     {
       path: '/quiz/list/:pageNumber',
       name: 'QuizList',
