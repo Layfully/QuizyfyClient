@@ -22,7 +22,7 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      meta: { transition: 'zoom', layout: 'FillWidth' }
+      meta: { transition: 'zoom', layout: 'FullWidth' }
     },
     {
       path: '/quiz/list/:pageNumber',
