@@ -11,6 +11,7 @@ import Axios from './plugins/axios'
 import './plugins/icons'
 import 'vue-material-design-icons/styles.css'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
+import 'nprogress/nprogress.css'
 
 Vue.use(VueReCaptcha, { siteKey: process.env.VUE_APP_CAPTCHA_SITE_KEY })
 Vue.use(VuePageTransition)

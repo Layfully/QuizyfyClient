@@ -8,13 +8,13 @@ import QuizCreation from '@/views/quiz/QuizCreation'
 import LoginForm from '@/views/user/LoginForm'
 import RegistrationForm from '@/views/user/RegistrationForm'
 import UserProfile from '@/views/user/UserProfile'
-import EmailConfirmation from '@/views/user/EmailConfirmation'
-import PasswordReset from '@/views/user/PasswordReset'
-import PasswordRecovery from '@/views/user/PasswordRecovery'
+import NProgress from 'nprogress'
 
 Vue.use(Router)
 
-export default new Router({
+NProgress.configure({ parent: '.v-content__wrap' })
+
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -80,3 +80,14 @@ export default new Router({
     }
   ]
 })
+
+router.beforeResolve((to, from, next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach((to, from) => {
+  NProgress.done()
+})
+
+export default router
