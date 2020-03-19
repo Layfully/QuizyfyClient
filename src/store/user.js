@@ -1,4 +1,14 @@
 import UserService from '@/api-services/user.service'
+import {
+  // when releasing check which one are used and delete
+  SET_USER,
+  CLEAR_USER,
+  SET_LOGGED_IN,
+  SET_ACCESS_TOKEN,
+  CLEAR_ACCESS_TOKEN,
+  SET_REFRESH_TOKEN,
+  CLEAR_REFERSH_TOKEN
+} from '@/store/mutations'
 
 const state = {
   loggedin: false,
@@ -35,62 +45,62 @@ const getters = {
 
 const actions = {
   login ({ commit }, credentials, recaptchaToken) {
-    return UserService.login(credentials, recaptchaToken).then((data) => {
-      setUserData(commit, data)
-    })
+    return UserService.login(credentials, recaptchaToken).then((response) => {
+      setUserData(commit, response.data)
+    }).then(() => this.$router.push({ name: 'Home' }))
   },
   register ({ commit }, user, recaptchaToken) {
-    return UserService.register(user, recaptchaToken).then((data) => {
-      setUserData(commit, data)
-    })
+    return UserService.register(user, recaptchaToken).then((response) => {
+      setUserData(commit, response.data)
+    }).then(() => this.$router.push({ name: 'LoginForm' }))
   },
   confirmEmail ({ commit }, data) {
-    return UserService.confirmEmail(data.id, data.verificationToken).then((data) => {
-      setUserData(commit, data)
-    })
+    return UserService.confirmEmail(data.id, data.verificationToken).then((response) => {
+      setUserData(commit, response.data)
+    }).then(() => this.$router.push({ name: 'Home' }))
   },
   changePassword ({ commit }, id, user) {
-    return UserService.changePasssword(id, user).then((data) => {
-      setUserData(commit, data)
-    })
+    return UserService.changePasssword(id, user).then((response) => {
+      setUserData(commit, response.data)
+    }).then(() => this.$router.push({ name: 'LoginForm' }))
   },
   generatePasswordResetToken ({ commit }, email) {
-    return UserService.generatePasswordResetToken(email).then((data) => {
-      setUserData(commit, data)
+    return UserService.generatePasswordResetToken(email).then((response) => {
+      setUserData(commit, response.data)
     })
   },
   logout ({ commit }) {
-    commit('setLoggedIn', false)
-    commit('setUser', false)
-    commit('clearAccessToken', false)
-    commit('clearRefreshToken', false)
+    commit(SET_LOGGED_IN, false)
+    commit(SET_USER, false)
+    commit(CLEAR_ACCESS_TOKEN, false)
+    commit(CLEAR_REFERSH_TOKEN, false)
   }
 }
 
 const mutations = {
-  setUser (state, user) {
+  [SET_USER] (state, user) {
     state.user = user
   },
-  clearUser (state, user) {
+  [CLEAR_USER] (state, user) {
     state.user = false
   },
-  setAccessToken (state, token) {
+  [SET_ACCESS_TOKEN] (state, token) {
     localStorage.setItem('accessToken', token)
     state.tokens.access = token
   },
-  clearAccessToken (state) {
+  [CLEAR_ACCESS_TOKEN] (state) {
     localStorage.removeItem('accessToken')
     state.tokens.access = false
   },
-  setRefreshToken (state, token) {
+  [SET_REFRESH_TOKEN] (state, token) {
     localStorage.setItem('refreshToken', token)
     state.tokens.refresh = token
   },
-  clearRefreshToken (state) {
+  [CLEAR_REFERSH_TOKEN] (state) {
     localStorage.removeItem('refreshToken')
     state.tokens.refresh = false
   },
-  setLoggedIn (state, status) {
+  [SET_LOGGED_IN] (state, status) {
     state.loggedin = status
   }
 }

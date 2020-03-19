@@ -1,9 +1,21 @@
+/** QUIZ */
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const ADD_CHOICE = 'ADD_CHOICE'
 
 export const REMOVE_QUESTION = 'REMOVE_QUESTION'
 export const REMOVE_CHOICE = 'REMOVE_CHOICE'
 
-export const SET_QUIZ = 'UPDATE_QUIZ'
+export const SET_NEW_QUIZ = 'UPDATE_QUIZ'
 export const SET_QUESTION = 'UPDATE_QUESTION'
 export const SET_CHOICE = 'UPDATE_CHOICE'
+
+/** USER */
+export const SET_USER = 'SET_USER'
+export const CLEAR_USER = 'CLEAR_USER'
+export const SET_LOGGED_IN = 'SET_LOGGED_IN'
+
+export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN'
+export const CLEAR_ACCESS_TOKEN = 'CLEAR_ACCESS_TOKEN'
+export const SET_REFRESH_TOKEN = 'SET_REFRESH_TOKEN'
+export const CLEAR_REFERSH_TOKEN = 'CLEAR_REFRESH_TOKEN'
+
