@@ -1,8 +1,7 @@
 <template>
-  <v-app light>
-    <Navbar/>
-    <MobileNavbar/>
-    <v-content>
+  <v-app>
+    <Navbar v-if="$vuetify.breakpoint.mdAndUp"/>
+    <v-content id="content">
       <vue-page-transition class="fill-height" >
       <component :is="layout">
         <vue-page-transition class="fill-height" style="width:100%">
@@ -11,6 +10,7 @@
       </component>
       </vue-page-transition>
     </v-content>
+    <MobileNavbar v-if="$vuetify.breakpoint.smAndDown" />
   </v-app>
 </template>
 
@@ -73,7 +73,8 @@ export default {
     Large,
     FullWidth,
     Navbar,
-    MobileNavbar
+    MobileNavbar,
+    Notification
   },
   computed: {
     layout () {

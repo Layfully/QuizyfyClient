@@ -18,7 +18,8 @@ Vue.use(VuePageTransition)
 Vue.config.productionTip = process.env.NODE_ENV === 'development'
 
 Vue.prototype.$http = Axios
-Vue.prototype.$eventBus = new Vue()
+Vue.prototype.$eventBus = new Vue() // todo: remove
+
 
 /* eslint-disable no-new */
 new Vue({
