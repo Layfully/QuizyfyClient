@@ -79,8 +79,8 @@ export default {
     }),
     userRegister (user) {
       this.$recaptcha('register').then((recaptchaToken) => {
-        this.register(user, recaptchaToken)
-          .then((data) => this.login(user))
+        this.register({ user, recaptchaToken })
+          .then(() => this.login(user))
           .then(() => this.$router.push({ path: '/' }))
           .catch((error) => console.log(error))
       }).catch((error) => console.log(error))

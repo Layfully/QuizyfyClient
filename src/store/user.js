@@ -44,25 +44,25 @@ const getters = {
 }
 
 const actions = {
-  login ({ commit }, credentials, recaptchaToken) {
-    return UserService.login(credentials, recaptchaToken).then((response) => {
+  login ({ commit }, payload) {
+    return UserService.login(payload.credentials, payload.recaptchaToken).then((response) => {
       setUserData(commit, response.data)
-    }).then(() => this.$router.push({ name: 'Home' }))
+    })
   },
-  register ({ commit }, user, recaptchaToken) {
-    return UserService.register(user, recaptchaToken).then((response) => {
+  register ({ commit }, payload) {
+    return UserService.register(payload.user, payload.recaptchaToken).then((response) => {
       setUserData(commit, response.data)
-    }).then(() => this.$router.push({ name: 'LoginForm' }))
+    })
   },
   confirmEmail ({ commit }, data) {
     return UserService.confirmEmail(data.id, data.verificationToken).then((response) => {
       setUserData(commit, response.data)
-    }).then(() => this.$router.push({ name: 'Home' }))
+    })
   },
-  changePassword ({ commit }, id, user) {
-    return UserService.changePasssword(id, user).then((response) => {
+  changePassword ({ commit }, payload) {
+    return UserService.changePassword(payload.id, payload.data).then((response) => {
       setUserData(commit, response.data)
-    }).then(() => this.$router.push({ name: 'LoginForm' }))
+    })
   },
   generatePasswordResetToken ({ commit }, email) {
     return UserService.generatePasswordResetToken(email).then((response) => {
@@ -101,6 +101,7 @@ const mutations = {
     state.tokens.refresh = false
   },
   [SET_LOGGED_IN] (state, status) {
+    console.log(status)
     state.loggedin = status
   }
 }
@@ -108,15 +109,20 @@ const mutations = {
 const setUserData = (commit, data) => {
   let user = {}
 
-  user.firstName = data.data.firstName
-  user.lastName = data.data.lastName
-  user.role = data.data.role
-  user.username = data.data.username
+  user.firstName = data.firstName
+  user.lastName = data.lastName
+  user.role = data.role
+  user.username = data.username
 
-  commit('setLoggedIn', true)
-  commit('setUser', user)
-  commit('setAccessToken', data.data.jwtToken)
-  commit('setRefreshToken', data.data.refreshToken.token)
+  commit(SET_LOGGED_IN, true)
+  commit(SET_USER, user)
+
+  if (data.jwtToken) {
+    commit(SET_ACCESS_TOKEN, data.jwtToken)
+  }
+  if (data.refreshToken) {
+    commit(SET_REFRESH_TOKEN, data.refreshToken.token)
+  }
 }
 
 export default {

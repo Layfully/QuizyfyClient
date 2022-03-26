@@ -13,20 +13,21 @@ const state = {
     {
       title: 'Rejestracja',
       path: { name: 'RegistrationForm' },
-      icon: 'mdi-face',
+      icon: 'mdi-account-plus',
       requireAuth: false
     },
     {
       title: 'Logowanie',
       path: { name: 'LoginForm' },
-      icon: 'mdi-lock-open',
+      icon: 'mdi-login',
       requireAuth: false
     },
     {
       title: 'Wyloguj się',
       path: { name: 'Home' },
       icon: 'mdi-logout',
-      requireAuth: true
+      requireAuth: true,
+      onClick: (event) => store.dispatch('User/logout', null, { root: true })
     },
     {
       title: 'Katalog Quizów',

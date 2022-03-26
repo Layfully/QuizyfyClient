@@ -8,7 +8,7 @@ import NProgress from 'nprogress'
 
 Vue.use(Router)
 
-NProgress.configure({ parent: '.v-content__wrap' })
+NProgress.configure({ parent: '.v-main__wrap' })
 
 const router = new Router({
   mode: 'history',
@@ -53,7 +53,7 @@ const router = new Router({
       meta: { transition: 'fade-in-up' }
     },
     {
-      path: '/confirm/:id/:token',
+      path: '/confirm/:id/:verificationToken',
       name: 'EmailConfirmation',
       props: true,
       component: () => import('@/views/user/EmailConfirmation')

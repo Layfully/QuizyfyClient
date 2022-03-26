@@ -13,7 +13,7 @@
                 :type="displayPassword ? 'text' : 'password'"
                 icon="mdi-lock"
                 :validationRules="{ require:true, between: [8, 1024 ], passwordMatch: 'Potwierdzenie Hasła' }"
-                v-model="user.password"/>
+                v-model="passwordResetPayload.data.password"/>
             </v-col>
             <v-col>
               <InputField
@@ -30,7 +30,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn block :disabled="!validated || invalid" color="primary" @click="changePassword(id, user)">Zmień hasło</v-btn>
+        <v-btn block :disabled="!validated || invalid" color="primary" @click="changeUserPassword(passwordResetPayload)">Zmień hasło</v-btn>
       </v-card-actions>
     </v-card>
   </ValidationObserver>
@@ -51,7 +51,7 @@ export default {
   },
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     token: {
@@ -61,21 +61,30 @@ export default {
   },
   data () {
     return {
-      user: {
-        password: '',
-        token: ''
+      passwordResetPayload: {
+        id: '',
+        data: {
+          password: '',
+          token: ''
+        }
       },
       displayPassword: false,
       confirmedPassword: ''
     }
   },
   mounted () {
-    this.user.token = this.token
+    this.passwordResetPayload.data.token = this.token
+    this.passwordResetPayload.id = this.id
   },
   methods: {
     ...mapActions({
       changePassword: 'User/changePassword'
-    })
+    }),
+    changeUserPassword (passwordResetPayload) {
+      this.changePassword(passwordResetPayload)
+        .then(() => this.$router.push({ name: 'LoginForm' }))
+        .catch((error) => console.log(error))
+    }
   }
 }
 </script>

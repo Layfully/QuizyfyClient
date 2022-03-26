@@ -7,7 +7,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="hidden-sm-and-down">
-        <v-btn color="error" v-for="item in activeMenuItems" :key="item.title" :to='item.path' class="mx-2">
+        <v-btn color="error" v-for="item in activeMenuItems" :key="item.title" :to='item.path' v-on="item.onClick ? { click: item.onClick } : {}"  class="mx-2">
           <v-icon class="title mr-1">{{item.icon}}</v-icon>
           {{ item.title }}
         </v-btn>

@@ -42,13 +42,6 @@ const state = {
       pageNumber: 1
     }
   }
-  quizList: {
-    items: {},
-    paging: {
-      pageSize: 4,
-      pageNumber: 1
-    }
-  }
 }
 
 const getters = {

@@ -8,7 +8,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn block color="primary" @click="this.confirmEmail(this.$props)">Potwierdź</v-btn>
+      <v-btn block color="primary" @click="userConfirmEmail">Potwierdź</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -19,7 +19,7 @@ export default {
   name: 'EmaillConfirmation',
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     verificationToken: {
@@ -30,7 +30,12 @@ export default {
   methods: {
     ...mapActions({
       confirmEmail: 'User/confirmEmail'
-    })
+    }),
+    userConfirmEmail () {
+      this.confirmEmail(this.$props)
+        .then(() => this.$router.push({ name: 'LoginForm' }))
+        .catch((error) => console.log(error))
+    }
   }
 }
 </script>

@@ -37,7 +37,7 @@ export default {
   },
   props: {
     pageNumber: {
-      type: String,
+      type: Number,
       required: true
     }
   },
@@ -64,8 +64,10 @@ export default {
       return this.quizList.items.slice((index - 1) * this.itemsPerRow, index * this.itemsPerRow)
     },
     rowCount () {
+      if (this.quizList.items.length > 0) {
+        return Math.ceil(this.quizList.items.length / this.itemsPerRow)
+      }
       // THERE IS ERROR WITH THIS LINE WHEN QUIZ DATA IS NOT PRESENT YET
-      return Math.ceil(this.quizList.items.length / this.itemsPerRow)
     },
     time (quiz) {
       return new Date(quiz.dateAdded)

@@ -44,7 +44,7 @@ export default {
     ...mapActions({
       generatePasswordResetToken: 'User/generatePasswordResetToken'
     }),
-    sendMail (email) {
+    sendEmailWithLinkReset (email) {
       this.generatePasswordResetToken(email)
         .then(() => this.$router.push({ path: '/' }))
         .catch((error) => console.log(error))

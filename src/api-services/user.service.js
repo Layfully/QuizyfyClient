@@ -20,13 +20,13 @@ export default {
     return Axios.post(RESOURCE_NAME.concat('/login'), userData)
   },
   confirmEmail (id, verificationToken) {
-    return Axios.patch(RESOURCE_NAME.concat(`/emailVerification/${id}`), verificationToken)
+    return Axios.patch(RESOURCE_NAME.concat(`/emailVerification/${id}`), { 'token': verificationToken })
   },
-  changePassword (id, userData) {
-    return Axios.patch(RESOURCE_NAME.concat(`/passwordRecovery/${id}`), userData)
+  changePassword (id, data) {
+    return Axios.patch(RESOURCE_NAME.concat(`/passwordRecovery/${id}`), data)
   },
   generatePasswordResetToken (email) {
-    return Axios.patch(RESOURCE_NAME.concat(`/recoveryTokenGeneration`), email)
+    return Axios.patch(RESOURCE_NAME.concat(`/recoveryTokenGeneration`), { 'email': email })
   },
   update (id, data) {
     return Axios.put(`${RESOURCE_NAME}/${id}`, data)

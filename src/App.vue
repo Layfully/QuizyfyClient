@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Navbar v-if="$vuetify.breakpoint.mdAndUp"/>
-    <v-content id="content">
+    <v-main id="content">
       <vue-page-transition class="fill-height" >
       <component :is="layout">
         <vue-page-transition class="fill-height" style="width:100%">
@@ -9,7 +9,7 @@
         </vue-page-transition>
       </component>
       </vue-page-transition>
-    </v-content>
+    </v-main>
     <Notification/>
     <MobileNavbar v-if="$vuetify.breakpoint.smAndDown" />
   </v-app>
