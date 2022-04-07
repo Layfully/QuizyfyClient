@@ -101,7 +101,6 @@ const mutations = {
     state.tokens.refresh = false
   },
   [SET_LOGGED_IN] (state, status) {
-    console.log(status)
     state.loggedin = status
   }
 }
