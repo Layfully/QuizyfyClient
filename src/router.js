@@ -71,6 +71,11 @@ const router = new Router({
       component: () => import('@/views/user/PasswordReset')
     },
     {
+      path: '/changeEmail',
+      name: 'ChangeEmail',
+      component: () => import('@/views/user/ChangeEmail')
+    },
+    {
       path: '/profile',
       name: 'UserProfile',
       component: UserProfile

@@ -5,41 +5,15 @@ import User from '@/store/user'
 import Quiz from '@/store/quiz'
 import Image from '@/store/image'
 import Notification from '@/store/notification'
+import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex)
 
 const state = {
-  menuItems: [
-    {
-      title: 'Rejestracja',
-      path: { name: 'RegistrationForm' },
-      icon: 'mdi-account-plus',
-      requireAuth: false
-    },
-    {
-      title: 'Logowanie',
-      path: { name: 'LoginForm' },
-      icon: 'mdi-login',
-      requireAuth: false
-    },
-    {
-      title: 'Wyloguj się',
-      path: { name: 'Home' },
-      icon: 'mdi-logout',
-      requireAuth: true,
-      onClick: (event) => store.dispatch('User/logout', null, { root: true })
-    },
-    {
-      title: 'Katalog Quizów',
-      path: { name: 'QuizList', params: { pageNumber: 1 } },
-      icon: 'mdi-book-multiple',
-      requireAuth: false
-    }
-  ]
 }
 
 const getters = {
-  menuItems () {
+  menuItems(state) {
     return state.menuItems
   }
 }
@@ -49,6 +23,10 @@ const actions = {
 
 const mutations = {
 }
+
+const persistentStorage = new VuexPersistence({
+  storage: window.localStorage
+})
 
 const store = new Vuex.Store({
   state,
@@ -62,7 +40,8 @@ const store = new Vuex.Store({
     Notification
   },
   plugins: [
-    VuexHandler
+    persistentStorage.plugin,
+    VuexHandler,
   ]
 })
 

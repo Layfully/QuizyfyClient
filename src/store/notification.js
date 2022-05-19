@@ -13,10 +13,10 @@ const state = {
 }
 
 const getters = {
-  hasErrorNotifications () {
+  hasErrorNotifications (state) {
     return state.errors.length > 0
   },
-  hasNotifications () {
+  hasNotifications (state) {
     return state.notifications.length > 0
   }
 }

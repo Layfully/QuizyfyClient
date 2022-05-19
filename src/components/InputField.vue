@@ -1,70 +1,89 @@
 <template>
-  <ValidationProvider slim :name="name" :rules="validationRules" v-slot="{errors, valid}" :bails="false">
-    <v-text-field
-    :error-messages="checkIfFocused(errors, isFocused)"
-    :error-count="errors.length"
-    :success="valid"
-    :id="name"
-    :label="name"
+  <ValidationProvider
+    ref="provider"
+    v-slot="{ errors, valid }"
+    slim
     :name="name"
-    :type="type"
-    :prepend-icon="icon"
-    :append-outer-icon="appendIcon"
-    :value="value"
-    :outlined="outlined"
-    :dense="dense"
-    @focus="isFocused = true"
-    @blur="isFocused = false"
-    @click:append-outer="$emit('click-append')"
-    @input="$emit('input', $event)"></v-text-field>
+    :rules="validationRules"
+    :bails="false"
+  >
+    <v-text-field
+      :id="name"
+      :error-messages="checkIfFocused(errors, isFocused)"
+      :error-count="checkIfFocused(errors, isFocused).length"
+      :success="Object.getOwnPropertyNames(validationRules).length !== 0 ? valid : null"
+      :label="name"
+      :name="name"
+      :type="type"
+      :prepend-icon="icon"
+      :append-outer-icon="appendIcon"
+      :value="value"
+      :outlined="outlined"
+      :dense="dense"
+      @focus="isFocused = true"
+      @blur="isFocused = false"
+      @click:append-outer="$emit('click-append')"
+      @input="$emit('input', $event)"
+    />
   </ValidationProvider>
 </template>
 <script>
-import { ValidationProvider } from 'vee-validate'
+import { ValidationProvider } from "vee-validate";
 
 export default {
-  name: 'InputField',
+  name: "InputField",
   components: {
-    ValidationProvider
+    ValidationProvider,
   },
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     type: {
       type: String,
-      required: true
+      required: true,
     },
     icon: {
-      type: String
+      type: String,
+      default: "",
     },
     value: {
-      required: true
+      type: String,
     },
     validationRules: {
       type: Object,
-      required: true
+      required: true,
     },
     appendIcon: {
-      type: String
+      type: String,
+      default: "",
     },
     outlined: {
-      type: Boolean
+      type: Boolean,
     },
     dense: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
+    additionalErrors: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
   },
-  data () {
+  data() {
     return {
-      isFocused: false
-    }
+      isFocused: false,
+    };
   },
   methods: {
-    checkIfFocused (errors, focus) {
-      return focus ? null : errors
-    }
-  }
-}
+    checkIfFocused(errors, focus) {
+      return focus ? [] : errors.concat(this.additionalErrors);
+    },
+    reset() {
+      this.$refs.provider.reset();
+    },
+  },
+};
 </script>
