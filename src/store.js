@@ -13,7 +13,7 @@ const state = {
 }
 
 const getters = {
-  menuItems () {
+  menuItems(state) {
     return state.menuItems
   }
 }

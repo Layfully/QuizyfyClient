@@ -20,46 +20,46 @@ const state = {
 }
 
 const getters = {
-  user () {
+  user(state) {
     return state.user
   },
-  isAdmin () {
+  isAdmin(state) {
     if (state.user) {
       return (typeof state.user.isAdmin !== 'undefined' && state.user.isAdmin)
     }
     return false
   },
-  loggedin () {
+  loggedin(state) {
     return state.loggedin
   },
-  accesstoken () {
+  accesstoken(state) {
     return state.tokens.access
   },
-  refreshtoken () {
+  refreshtoken(state) {
     return state.tokens.refresh
   },
-  authentication () {
+  authentication(state) {
     return state
   }
 }
 
 const actions = {
-  login ({ commit }, payload) {
+  login({ commit }, payload) {
     return UserService.login(payload.credentials, payload.recaptchaToken).then((response) => {
       setUserData(commit, response.data)
     })
   },
-  register ({ commit }, payload) {
+  register({ commit }, payload) {
     return UserService.register(payload.user, payload.recaptchaToken).then((response) => {
       setUserData(commit, response.data)
     })
   },
-  confirmEmail ({ commit }, data) {
+  confirmEmail({ commit }, data) {
     return UserService.confirmEmail(data.id, data.verificationToken).then((response) => {
       setUserData(commit, response.data)
     })
   },
-  changePassword ({ commit }, payload) {
+  changePassword({ commit }, payload) {
     return UserService.changePassword(payload.id, payload.data).then((response) => {
       setUserData(commit, response.data)
     })
@@ -78,29 +78,29 @@ const actions = {
 }
 
 const mutations = {
-  [SET_USER] (state, user) {
+  [SET_USER](state, user) {
     state.user = user
   },
-  [CLEAR_USER] (state, user) {
+  [CLEAR_USER](state, user) {
     state.user = false
   },
-  [SET_ACCESS_TOKEN] (state, token) {
+  [SET_ACCESS_TOKEN](state, token) {
     localStorage.setItem('accessToken', token)
     state.tokens.access = token
   },
-  [CLEAR_ACCESS_TOKEN] (state) {
+  [CLEAR_ACCESS_TOKEN](state) {
     localStorage.removeItem('accessToken')
     state.tokens.access = false
   },
-  [SET_REFRESH_TOKEN] (state, token) {
+  [SET_REFRESH_TOKEN](state, token) {
     localStorage.setItem('refreshToken', token)
     state.tokens.refresh = token
   },
-  [CLEAR_REFERSH_TOKEN] (state) {
+  [CLEAR_REFERSH_TOKEN](state) {
     localStorage.removeItem('refreshToken')
     state.tokens.refresh = false
   },
-  [SET_LOGGED_IN] (state, status) {
+  [SET_LOGGED_IN](state, status) {
     state.loggedin = status
   }
 }

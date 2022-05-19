@@ -45,12 +45,12 @@ const state = {
 }
 
 const getters = {
-  newQuestion () {
+  newQuestion (state) {
     return (questionIndex) => {
       return state.newQuiz.questions[questionIndex]
     }
   },
-  newChoice () {
+  newChoice (state) {
     return (questionIndex, choiceIndex) => {
       return state.newQuiz.questions[questionIndex].choices[choiceIndex]
     }
