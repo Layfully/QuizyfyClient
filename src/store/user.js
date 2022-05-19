@@ -64,12 +64,36 @@ const actions = {
       setUserData(commit, response.data)
     })
   },
-  generatePasswordResetToken ({ commit }, email) {
+  changeEmail({ commit }, payload) {
+    return UserService.changeEmail(payload.id, payload.data).then((response) => {
+      setUserData(commit, response.data)
+    })
+  },
+  generateEmailChangeToken({ commit }, payload) {
+    return UserService.generateEmailChangeToken(payload.id, payload.data, payload.credentials).then((response) => {
+      setUserData(commit, response.data)
+    })
+  },
+  generatePasswordResetToken({ commit }, email) {
     return UserService.generatePasswordResetToken(email).then((response) => {
       setUserData(commit, response.data)
     })
   },
-  logout ({ commit }) {
+  update({ commit }, payload) {
+    return UserService.update(payload.id, payload.data, payload.credentials).then((response) => {
+      setUserData(commit, response.data)
+    })
+  },
+  delete({ commit }, payload) {
+    return UserService.delete(payload.id, payload.credentials).then(() => {
+      commit(SET_LOGGED_IN, false)
+      commit(SET_USER, false)
+      commit(CLEAR_ACCESS_TOKEN, false)
+      commit(CLEAR_REFERSH_TOKEN, false)
+    })
+  },
+  logout({ commit }) {
+    console.log('test')
     commit(SET_LOGGED_IN, false)
     commit(SET_USER, false)
     commit(CLEAR_ACCESS_TOKEN, false)
@@ -108,10 +132,12 @@ const mutations = {
 const setUserData = (commit, data) => {
   let user = {}
 
+  user.id = data.id
   user.firstName = data.firstName
   user.lastName = data.lastName
   user.role = data.role
   user.username = data.username
+  user.description = data.description
 
   commit(SET_LOGGED_IN, true)
   commit(SET_USER, user)
