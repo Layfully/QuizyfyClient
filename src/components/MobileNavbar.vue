@@ -1,24 +1,34 @@
 <template>
-    <v-bottom-navigation app grow shift :input-value="$vuetify.breakpoint.smAndDown">
-      <v-btn v-for="item in activeMenuItems" :key="item.title" :to="item.path">
-        <v-icon>{{item.icon}}</v-icon>
-        <span>{{item.title}}</span>
-      </v-btn>
+  <v-bottom-navigation
+    app
+    grow
+    shift
+    :input-value="$vuetify.breakpoint.smAndDown"
+  >
+    <v-btn v-for="item in activeMenuItems" :key="item.title" :to="item.path">
+      <v-icon>{{ item.icon }}</v-icon>
+      <span>{{ item.title }}</span>
+    </v-btn>
   </v-bottom-navigation>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'TheSidebar',
+  name: "MobileNavbar",
+  props: {
+    menuItems: {
+      type: Array,
+      required: true,
+    },
+  },
   computed: {
     ...mapGetters({
-      loggedin: 'User/loggedin',
-      menuItems: 'menuItems'
+      loggedin: "User/loggedin",
     }),
-    activeMenuItems () {
-      return this.menuItems.filter(i => i.requireAuth === this.loggedin)
-    }
-  }
-}
+    activeMenuItems() {
+      return this.menuItems.filter((i) => i.requireAuth === this.loggedin);
+    },
+  },
+};
 </script>

@@ -27,8 +27,8 @@ Vue.component('RecaptchaInfo', () => import('@/components/RecaptchaInfo'))
 new Vue({
   el: '#app',
   router,
+  components: { App },
   template: '<App/>',
   store,
   vuetify,
-  components: { App }
 })
