@@ -3,7 +3,7 @@
     <v-textarea
     :error-messages="checkIfFocused(errors, isFocused)"
     :error-count="errors.length"
-    :success="valid"
+    :success="Object.getOwnPropertyNames(validationRules).length !== 0 ? valid : null"
     :id="name"
     :label="name"
     :name="name"

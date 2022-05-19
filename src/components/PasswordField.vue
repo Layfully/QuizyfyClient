@@ -47,7 +47,6 @@ export default {
       type: String
     },
     value: {
-      required: true
     },
     validationRules: {
       type: Object,
@@ -70,7 +69,10 @@ export default {
   },
   computed: {
     passwordStrength () {
-      return zxcvbn(this.value).score * 25
+      if(this.value != null) {
+        return zxcvbn(this.value).score * 25
+      }
+      return 0
     },
     passwordStrengthMeterColor () {
       return ['primary', 'secondary', 'error', 'warning', 'success'][this.passwordStrength / 25]
