@@ -12,14 +12,14 @@ const onError = (error) => {
       const originalRequest = error.config
       if (!originalRequest._retry && error.response.data === 'Token Expired') {
         originalRequest._retry = true
-        const refreshToken = store.getters['authentication/refreshtoken']
-        const jwtToken = store.getters['authentication/accesstoken']
+        const refreshToken = store.getters['User/refreshtoken']
+        const jwtToken = store.getters['User/accesstoken']
 
         return UserService.refresh({ jwtToken, refreshToken }).then((response) => {
-          store.commit('authentication/setAccessToken', response.token.access)
+          store.commit('User/setAccessToken', response.token.access)
           return axios(originalRequest)
         }).catch((error) => {
-          store.dispatch('authentication/logout')
+          store.dispatch('User/logout')
           return Promise.reject(error)
         })
       }
@@ -29,7 +29,7 @@ const onError = (error) => {
 }
 
 const beforeRequestSuccess = (config) => {
-  config.headers.Authorization = `Bearer ${store.getters['authentication/accesstoken']}`
+  config.headers.Authorization = `Bearer ${store.getters['User/accesstoken']}`
   return config
 }
 
